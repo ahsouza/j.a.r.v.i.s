@@ -1,4 +1,4 @@
-** Creating your virtual assistant using telegram messaging application developed on node
+**Creating your virtual assistant using telegram messaging application developed on node**
 
 
 
@@ -23,3 +23,7 @@ Keep your token secure and store it safely, it can be used by anyone to control 
 
 For a description of the Bot API, see this page: ![alt text](https://core.telegram.org/bots/api)
 ```
+
+*   **env.example** - This is the file to configure your bot token created by **Telegram**
+    
+  *   line **01** Add the token in the environment variable example parameter
