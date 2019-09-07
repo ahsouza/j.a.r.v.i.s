@@ -1,4 +1,4 @@
-## Creating your virtual assistant using telegram messaging application developed on node**
+## Creating your virtual assistant using telegram messaging application developed on Node.JS
 
 ### J.A.R.V.I.S
 ![alt text](/assets/jarvis.jpg)
