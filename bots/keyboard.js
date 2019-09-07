@@ -69,60 +69,106 @@ bot.start(async context => {
   	Markup.keyboard(['Trabalho', 'Tarefas', 'Estudos', 'Compras', 'Futura Esposa', 'Filho', 'Negócios', 'Comunidades', 'Sonhos']).resize().oneTime().extra())
 })
 
+// *******************
+// **** TRABALHOS ****
+// *******************
 bot.hears('Trabalho', async context => {
   
   await context.reply(`Ah Bacana! Vamos ver o que temos de obrigações para seu ${context.match} Senhor`)
   await context.reply('Qual seria sua ordem de serviço para hoje Mestre?', keyboardMyWorks)
 })
 
+bot.hears('🤖 Bots', context => context.reply('Ok! Então vamos para as opções de Bots, espero que não queira me substituir Senhor!'))
+bot.hears('🤖 Deploy', context => context.reply('Bacana, mais uma aplicação mandaremos para o ar!'))
+bot.hears('🤖 SysAdmin', context => context.reply('Vamos gerenciar qual Sistema Operacional, Senhor?'))
+bot.hears('🤖 Automatização', context => context.reply('O que deseja automatizar?'))
+bot.hears('🤖 Software', context => context.reply('Em quais tecnologias deseja desenvolver o Software?'))
+bot.hears('🔐 Segurança', context => context.reply('Hum, segurança nunca é de mais. Irei mostrar nossas ferramentas!'))
+bot.on('text', context => context.reply('Bom, acho que hoje não é dia para trabalho!'))
+
+// *******************
+// ***** TAREFAS *****
+// *******************
 bot.hears('Tarefas', async context => {
   
   await context.reply(`Hum vejo que tem ${context.match} a ser realizadas Senhor`)
   await context.reply('Qual delas deseja iniciar?', keyboardMyTasks)
 })
 
+
+
+// *******************
+// ***** ESTUDOS *****
+// *******************
 bot.hears('Estudos', async context => {
   
   await context.reply(`Precisa continuar seus ${context.match} Senhor, até se tornar um grande Mestre`)	
   await context.reply('Qual dos tópicos podemos continuar ou iniciar?', keyboardMyStudies)
 })
 
+
+// *******************
+// ***** COMPRAS *****
+// *******************
 bot.hears('Compras', async context => {
   
   await context.reply(`Opa! uma ${context.match} Senhor, ok vamos gastar um pouco!`)
   await context.reply('O que deseja comprar Mestre?', keyboardMyShopping)
 })
 
+// *******************
+// ***** ESPOSA ******
+// *******************
 bot.hears('Futura Esposa', async context => {
   
   await context.reply(`Hum que amor, presentes para a ${context.match} e isso é ótimo Senhor`)	
   await context.reply('O que deseja para ela?', keyboardGiftsForMyLove)
 })
 
+
+// ***************************
+// **** OBRIGAÇÕES FILHO *****
+// ***************************
 bot.hears('Obrigações Filho', async context => {
   
   await context.reply(`Ok Senhor! vamos saber mais sobre as ${context.match}`)
   await context.reply('Que tal escolher uma de suas obrigações para saber seu rendimento?', keyboardObligationsToMySon)
 })
 
+// ***************************
+// **** PRESENTES FILHO ******
+// ***************************
 bot.hears('Presentear o Filho', async context => {
   
   await context.reply(`Ok Senhor! espero que seu filho esteja indo bem na escola para ${context.match}`)
   await context.reply('Qual presente deseja dar para ele?', keyboardGiftsForMySon)
 })
 
+
+// ***************************
+// ********* NEGÓCIOS ********
+// ***************************
 bot.hears('Negócios', async context => {
   
   await context.reply(`Ah que bacana! vamos saber mais de seus ${context.match}`)
   await context.reply('Acho uma boa idéia selecionar o negócio que mais precisa de seu apoio Senhor', keyboardMyBusiness)
 })
 
+
+
+// ***************************
+// ******* COMUNIDADES *******
+// ***************************
 bot.hears('Comunidades', async context => {
   
   await context.reply(`Ah que legal! vamos da uma olhada como anda nas ${context.match} que você participa`)
   await context.reply('Escolha a comunidade Senhor', keyboardMyCommunities)
 })
 
+
+// ***************************
+// ********* SONHOS **********
+// ***************************
 bot.hears('Sonhos', async context => {
   
   await context.reply(`Nossa que bacana! Tem ${context.match} a ser realizados Senhor`)	
