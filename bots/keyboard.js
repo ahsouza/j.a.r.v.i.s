@@ -60,3 +60,11 @@ const keyboardObligationsToMySon = Markup.keyboard([
   ['✍ Tarefas De Casa', ' Higienização', '📘 Estudos'],
   ['😷 Dentista', '👩‍⚕ Pediatra', ' Organização']
 ]).resize().extra()
+
+
+bot.start(async context => {
+  
+  await context.reply(`Olá Mestre! ${context.update.message.from.first_name}!`)
+  await context.reply(`Em que posso ser útil?`, 
+  	Markup.keyboard(['Trabalho', 'Tarefas', 'Estudos', 'Compras', 'Futura Esposa', 'Filho', 'Negócios', 'Comunidades', 'Sonhos']).resize().oneTime().extra())
+})
