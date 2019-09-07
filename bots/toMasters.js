@@ -8,7 +8,6 @@ bot.start(context => {
   	context.reply('Ao seu dispor, Mestre!')
   } else {
   	context.reply('Sinto muito, mas eu só falo com o meu mestre!')
-
   }
 
 })

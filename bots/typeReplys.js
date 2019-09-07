@@ -13,4 +13,6 @@ bot.start(async content => {
   await content.replyWithVideo('https://www.youtube.com/watch?v=umokQ920a8U&list=LLm1wbADwaDcrQzpUz5uOZGQ&index=38')
 })
 
+
+// Start bot
 bot.startPolling()

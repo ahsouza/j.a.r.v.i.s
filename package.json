@@ -9,6 +9,7 @@
   "author": "@ahsouza Aníbal Henrique De Souza",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
     "nodemon": "^1.19.2",
     "telegraf": "3.17.3"
   }
