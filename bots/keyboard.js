@@ -34,6 +34,10 @@ const keyboardMyDreams = Markup.keyboard([
   [' Proteção', ' Prever Crimes/Erros'],
 ]).resize().extra()
 
+const keyboardMyCommunities = Markup.keyboard([
+  [' ArgoCrew', ' Hacking Health']
+]).resize().extra()
+
 const keyboardMyBusiness = Markup.keyboard([
   [' ***', ' ***', ' ***']
 ]).resize().extra()
