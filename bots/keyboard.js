@@ -84,7 +84,7 @@ bot.hears('🤖 SysAdmin', context => context.reply('Vamos gerenciar qual Sistem
 bot.hears('🤖 Automatização', context => context.reply('O que deseja automatizar?'))
 bot.hears('🤖 Software', context => context.reply('Em quais tecnologias deseja desenvolver o Software?'))
 bot.hears('🔐 Segurança', context => context.reply('Hum, segurança nunca é de mais. Irei mostrar nossas ferramentas!'))
-bot.on('text', context => context.reply('Bom, acho que hoje não é dia para trabalho!'))
+
 
 // *******************
 // ***** TAREFAS *****
@@ -95,7 +95,16 @@ bot.hears('Tarefas', async context => {
   await context.reply('Qual delas deseja iniciar?', keyboardMyTasks)
 })
 
-
+bot.hears('🏆 Carreira Profissional', context => context.reply('Ok Senhor, vamos ver o rendimento de sua carreira!'))
+bot.hears('📚 Estudos', context => context.reply('Bacana, continuaremos os estudos Mestre!'))
+bot.hears('🧖‍♂ Higienização', context => context.reply('Está na hora de uma limpeza Senhor!'))
+bot.hears('🏋‍♂ Exercício Físico', context => context.reply('O que deseja automatizar?'))
+bot.hears('🧘‍♂ Meditação', context => context.reply('Que tal separarmos alguns minutos para meditação?'))
+bot.hears('📚 Leitura', context => context.reply('Estudos é sempre bom, a cada absorção de conhecimentos melhor será estruturada sua mente!'))
+bot.hears('⌨ Codificação', context => context.reply('Vamos programar em que Senhor?'))
+bot.hears('💰 + Capital', context => context.reply('Vejo que precisa de mais capitais Senhor, vamos ver algumas sugestões para gerar isto!'))
+bot.hears('💉 Saúde', context => context.reply('Saúde em primeiro lugar, e agora vamos solucionar isto!'))
+bot.hears('🗞 Notícias', context => context.reply('Vamos escolher quais tipos de notícias e em quais lugares deseja ver!'))
 
 // *******************
 // ***** ESTUDOS *****
@@ -174,3 +183,7 @@ bot.hears('Sonhos', async context => {
   await context.reply(`Nossa que bacana! Tem ${context.match} a ser realizados Senhor`)	
   await context.reply('Que tal escolher o que está mais motivado a realizar?', keyboardMyDreams)
 })
+
+bot.on('text', context => context.reply('Bom, acho que hoje não posso ser útil para o Senhor!'))
+// Start Bot
+bot.startPolling()
