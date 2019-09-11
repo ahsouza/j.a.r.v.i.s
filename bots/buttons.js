@@ -5,7 +5,7 @@ const Markup = require('telegraf/markup')
 const bot = new Telegraf(env.token)
 
 let contagem = 0
-
+// Teclado inline
 const buttons = Extra.markup(Markup.inlineKeyboard([
   Markup.callbackButton('+1', 'add 1'),
   Markup.callbackButton('+10', 'add 10'),
