@@ -38,3 +38,14 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
   ```sh
 cp .env.example .env
   ```
+2 - Run some functional bot with
+
+```sh
+node exemplo-bot-funcional.js
+```
+
+or upload the docker bot by changing the dockerfile file in the CMD parameter argument and execute:
+
+```sh
+docker build -t j.a.r.v.i.s-telegram .
+```
