@@ -14,8 +14,8 @@ const buttons = list => Extra.markup(
 bot.use(session())
 
 const verificationUser = (context, next) => {
-  const equalIDmsg = context.update.message && context.update.message.from.id === env.id
-  const equalIDCallback = context.update.callback_query && context.update.callback_query.from.id === env.id
+  const equalIDmsg = context.update.message && context.update.message.from.id == env.id
+  const equalIDCallback = context.update.callback_query && context.update.callback_query.from.id == env.id
 
   if (equalIDmsg || equalIDCallback) {
     next()
@@ -24,22 +24,23 @@ const verificationUser = (context, next) => {
   }
 }
 
+const loading = ({ reply }, next) => reply('carregando...').then(() => next())
 
 
-bot.start(async context => {
+bot.start(verificationUser, async context => {
   const name = context.update.message.from.first_name
   await context.reply(`Seja bem vindo, ${name}!`)	
   await context.reply('Digite os itens que você deseja adicionar ao carrinho de compras...')
   context.session.list = []
 })
 
-bot.on('text', context => {
+bot.on('text', verificationUser, loading, context => {
   let msg = context.update.message.text
   context.session.list.push(msg)
   context.reply(`${msg} adicionado com sucesso!`, buttons(context.session.list))
 })
 
-bot.action(/delete (.+)/, context => {
+bot.action(/delete (.+)/, verificationUser, context => {
   context.session.list = context.session.list.filter(item => item !== context.match[1])
   context.reply(`${context.match[1]} foi excluído!`, buttons(context.session.list))
 })
