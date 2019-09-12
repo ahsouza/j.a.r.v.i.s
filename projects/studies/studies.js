@@ -14,7 +14,7 @@ const keyboardOptionsStudies = Markup.keyboard([
 ]).resize().extra()
 
 const keyboardOptionsLearn = Markup.keyboard([
-  ['DOCUMENTAÇÃO','LIVRO', 'LINKS'],
+  ['DOCUMENTAÇÃO','LIVROS', 'LINKS'],
   ['GITHUB', 'GET-STARTED', 'VÍDEOS']
 ]).resize().extra()
 // *************************
@@ -86,10 +86,10 @@ bot.hears('BACK-END', async context => {
 
 
 bot.hears('NODE.JS', async context => {
-  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Node.JS* Senhor?`, buttons)	
+  context.replyWithMarkdown(`Deseja continuar com *Node.JS* Senhor?`, buttons)	
 })
 bot.action('n', context => {
-  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Back-End* !')
+  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Back-End* !', keyboardBackEnd)
 })
 bot.action('s', async context => {
   context.reply('Ok! Como deseja aprender?', keyboardOptionsLearn)
@@ -98,7 +98,7 @@ bot.hears('DOCUMENTAÇÃO', async context => {
   context.replyWithMarkdown(`Aqui está uma [documentação](https://nodejs.org/docs/latest-v11.x/api/http.html) completa da fundação *Node.JS*`)
 })
 bot.hears('GET-STARTED', async context => {
-  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://nodejs.org/en/docs/guides/getting-started-guide/) & [Contentful](https://github.com/contentful/the-example-app.nodejs)`)
+  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://nodejs.org/en/docs/guides/getting-started-guide/) OU [Contentful](https://github.com/contentful/the-example-app.nodejs)`)
 })
 bot.hears('GITHUB', async context => {
   context.replyWithMarkdown(`Um bom exemplo no [GitHub](https://github.com/heroku/node-js-sample)`)
@@ -115,10 +115,10 @@ bot.hears('VÍDEOS', async context => {
 
 
 bot.hears('LARAVEL PHP', async context => {
-  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Laravel PHP* Senhor?`, buttons)	
+  context.replyWithMarkdown(`Deseja continuar com *Laravel PHP* Senhor?`, buttons)	
 })
 bot.action('n', context => {
-  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Back-End* !')
+  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Back-End* !', keyboardBackEnd)
 })
 bot.action('s', async context => {
   context.reply('Ok! Como deseja aprender?', keyboardOptionsLearn)
@@ -127,7 +127,7 @@ bot.hears('DOCUMENTAÇÃO', async context => {
   context.replyWithMarkdown(`Aqui está uma [documentação](https://laravel.com/docs/6.0) completa da fundação *Laravel 6.0*`)
 })
 bot.hears('GET-STARTED', async context => {
-  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://laravel.com/docs/6.0/installation/) & [Contentful](https://github.com/contentful/contentful-laravel)`)
+  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://laravel.com/docs/6.0/installation/) OU [Contentful](https://github.com/contentful/contentful-laravel)`)
 })
 bot.hears('GITHUB', async context => {
   context.replyWithMarkdown(`Um bom exemplo no [GitHub](https://github.com/laravel/laravel)`)
@@ -142,11 +142,12 @@ bot.hears('VÍDEOS', async context => {
   context.replyWithMarkdown(`Este é um bom começo em vídeo aula no [YouTube](https://www.youtube.com/watch?v=RBQVKTLsi8Y&list=PL8p2I9GklV45qSQg-9EhKoQiW1pYZbC8l) Senhor!`)
 })
 
+
 bot.hears('ASP.NET', async context => {
-  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Asp.Net/DotNet* Senhor?`, buttons)	
+  context.replyWithMarkdown(`Deseja continuar com *Asp.Net Core* Senhor?`, buttons)	
 })
 bot.action('n', context => {
-  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Back-End* !')
+  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Back-End* !', keyboardBackEnd)
 })
 bot.action('s', async context => {
   context.reply('Ok! Como deseja aprender?', keyboardOptionsLearn)
@@ -155,7 +156,7 @@ bot.hears('DOCUMENTAÇÃO', async context => {
   context.replyWithMarkdown(`Aqui está uma [documentação](https://docs.microsoft.com/pt-br/aspnet/#pivot=core&panel=core_overview) completa da fundação *Microsoft ASP.NET Core*`)
 })
 bot.hears('GET-STARTED', async context => {
-  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://docs.microsoft.com/en-us/aspnet/core/getting-started/?view=aspnetcore-2.2&tabs=linux) & [Contentful](https://github.com/contentful/contentful.net)`)
+  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://docs.microsoft.com/en-us/aspnet/core/getting-started/?view=aspnetcore-2.2&tabs=linux) OU [Contentful](https://github.com/contentful/contentful.net)`)
 })
 bot.hears('GITHUB', async context => {
   context.replyWithMarkdown(`Um bom exemplo no [GitHub](https://github.com/aspnet/samples)`)
@@ -179,14 +180,110 @@ bot.hears('FRONT-END', async context => {
 bot.hears('VUE.JS', async context => {
   context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Vue.JS* Senhor?`, buttons)	
 })
+bot.action('n', context => {
+  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Front-End* !', keyboardFrontEnd)
+})
+bot.action('s', async context => {
+  context.reply('Ok! Como deseja aprender?', keyboardOptionsLearn)
+})
+bot.hears('DOCUMENTAÇÃO', async context => {
+  context.replyWithMarkdown(`Aqui está uma [documentação](https://br.vuejs.org/v2/guide/index.html) completa da fundação *Vue.JS*`)
+})
+bot.hears('GET-STARTED', async context => {
+  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://br.vuejs.org/v2/guide/installation.html) OU [Contentful](https://www.contentful.com/developers/docs/javascript/tutorials/integrate-contentful-with-vue-and-nuxt/)`)
+})
+bot.hears('GITHUB', async context => {
+  context.replyWithMarkdown(`Um bom exemplo no [GitHub](https://github.com/gothinkster/vue-realworld-example-app)`)
+})
+bot.hears('LIVROS', async context => {
+  context.replyWithMarkdown(`Infelizmente não temos nenhum livro Senhor! 😔 \nDeseja comprar algum?`, buttons)
+})
+bot.action('n', context => {
+  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma !', keyboardOptionsLearn)
+})
+bot.action('s', async context => {
+  context.reply('Bacana, vamos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-frontend-vue?_pos=2&_sid=3652f3a1d&_ss=r)', keyboardOptionsLearn)
+})
+bot.hears('LINKS', async context => {
+  context.replyWithMarkdown(`Achei estes links: [link1](https://medium.mybridge.co/45-amazing-vue-js-open-source-for-the-past-year-v-2019-b8533f26a0a2) & [link2](https://www.taniarascia.com/getting-started-with-vue/) que possa servir como ajuda Senhor!`)
+})
+bot.hears('VÍDEOS', async context => {
+  context.replyWithMarkdown(`Este é um bom começo em vídeo aula no [YouTube](https://www.youtube.com/watch?v=07-TvnH7XNo&list=PLcoYAcR89n-qq1vGRbaUiV6Q9puy0qigW) Senhor!`)
+})
+
+
 
 bot.hears('REACT.JS', async context => {
   context.replyWithMarkdown(`Deseja ver um simples GetStarted com *React.JS* Senhor?`, buttons)	
 })
+bot.action('n', context => {
+  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Front-End* !', keyboardFrontEnd)
+})
+bot.action('s', async context => {
+  context.reply('Ok! Como deseja aprender?', keyboardOptionsLearn)
+})
+bot.hears('DOCUMENTAÇÃO', async context => {
+  context.replyWithMarkdown(`Aqui está uma [documentação](https://pt-br.reactjs.org/docs/getting-started.html) completa da fundação *React.JS*`)
+})
+bot.hears('GET-STARTED', async context => {
+  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://pt-br.reactjs.org/docs/create-a-new-react-app.html) OU [Contentful](https://www.contentful.com/blog/2019/02/18/how-build-react-redux-app/)`)
+})
+bot.hears('GITHUB', async context => {
+  context.replyWithMarkdown(`Um bom exemplo no [GitHub](https://github.com/edoko/react-redux-crud-example)`)
+})
+bot.hears('LIVROS', async context => {
+  context.replyWithMarkdown(`Infelizmente não temos nenhum livro Senhor! 😔 \nDeseja comprar algum?`, buttons)
+})
+bot.action('n', context => {
+  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma !', keyboardOptionsLearn)
+})
+bot.action('s', async context => {
+  context.reply('Bacana, vamos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-pwa?_pos=1&_sid=7ac361db2&_ss=r)', keyboardOptionsLearn)
+})
+bot.hears('LINKS', async context => {
+  context.replyWithMarkdown(`Achei estes links: [link1](https://medium.com/@cakiran/react-crud-app-without-and-with-redux-da4cd87f2eab) & [link2](https://blog.tecsinapse.com.br/utilizando-react-redux-firebase-2bf93ea9f422) que possa servir como ajuda Senhor!`)
+})
+bot.hears('VÍDEOS', async context => {
+  context.replyWithMarkdown(`Este é um bom começo em vídeo aula no [YouTube](https://www.youtube.com/watch?v=0k3czp6O-qg&list=PLXe1Uv1JGlTbrdrcZIZOabEBSpeNeVHD7) Senhor!`)
+})
+
+
+
 
 bot.hears('ANGULAR.JS', async context => {
   context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Angular.JS* Senhor?`, buttons)	
 })
+bot.action('n', context => {
+  context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Front-End* !', keyboardFrontEnd)
+})
+bot.action('s', async context => {
+  context.reply('Ok! Como deseja aprender?', keyboardOptionsLearn)
+})
+bot.hears('DOCUMENTAÇÃO', async context => {
+  context.replyWithMarkdown(`Aqui está uma [documentação](https://angular.io/docs) completa da fundação *Angular.JS*`)
+})
+bot.hears('GET-STARTED', async context => {
+  context.replyWithMarkdown(`Que tal este [GetStarted Simples](https://angular.io/start) OU [Contentful](https://www.contentful.com/developers/docs/javascript/tutorials/using-contentful-in-an-angular-project/)`)
+})
+bot.hears('GITHUB', async context => {
+  context.replyWithMarkdown(`Um bom exemplo no [GitHub](https://github.com/angular/quickstart)`)
+})
+bot.hears('LIVROS', async context => {
+  context.replyWithMarkdown(`Infelizmente não temos nenhum livro Senhor! 😔 \nDeseja comprar algum?`, buttons)
+})
+bot.action('n', context => {
+  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma !', keyboardOptionsLearn)
+})
+bot.action('s', async context => {
+  context.reply('Bacana, vamos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-angular?_pos=1&_sid=4986e8b1a&_ss=r)', keyboardOptionsLearn)
+})
+bot.hears('LINKS', async context => {
+  context.replyWithMarkdown(`Achei estes links: [link1](https://www.devglan.com/angular/angular-7-crud-example) - [link2](https://medium.com/@andrewchanm/criando-um-app-angular-7-e-consumindo-uma-api-rest-1-de-3-7169d90ed8c1) - [link3](https://appdividend.com/2018/11/04/angular-7-crud-example-mean-stack-tutorial/) que possa servir como ajuda Senhor!`)
+})
+bot.hears('VÍDEOS', async context => {
+  context.replyWithMarkdown(`Este é um bom começo em vídeo aula no [YouTube](https://www.youtube.com/watch?v=7yGHRoLkI30&list=PLK7sa90aSLe7RW_7qotGlmBxMtm-jajCG) Senhor!`)
+})
+
 
 // ***** DEV OPS ******
 bot.hears('DEV-OPS', async context => {
