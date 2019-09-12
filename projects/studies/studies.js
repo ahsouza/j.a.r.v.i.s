@@ -56,13 +56,25 @@ const keyboardCloudServices = Markup.keyboard([
 
 ]).resize().extra()
 
+// *****************************
+// *** KEYBOARD CYBER-SECURITY *
+// *****************************
+const keyboardCloudServices = Markup.keyboard([
+  ['FIREWALL', 'PROXY', 'PROXY-REVERSE'],
+  ['WIFI', 'DOCKER-SECURITY', 'KUBERNETES-SECURITY'],
+  ['LINUX-SERVER-SECURITY', 'WINDOWS-SERVER-SECURITY', 'KUBERNETES-SECURITY']
+
+]).resize().extra()
+
+
+
 const buttons = Extra.markup(Markup.inlineKeyboard([
   Markup.callbackButton('Sim', 's'),
   Markup.callbackButton('Não', 'n')
 ], {columns: 2}))
 
 const location = Markup.keyboard([
-  Markup.locationRequestButton('Clique aqui para enviar sua localização')
+  Markup.locationRequestButton('Enviar localização')
 ]).resize().oneTime().extra()
 
 bot.start(async context=> {
@@ -178,7 +190,7 @@ bot.hears('FRONT-END', async context => {
 })
 
 bot.hears('VUE.JS', async context => {
-  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Vue.JS* Senhor?`, buttons)	
+  context.replyWithMarkdown(`Deseja continuar com *Vue.JS* Senhor?`, buttons)	
 })
 bot.action('n', context => {
   context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Front-End* !', keyboardFrontEnd)
@@ -199,10 +211,32 @@ bot.hears('LIVROS', async context => {
   context.replyWithMarkdown(`Infelizmente não temos nenhum livro Senhor! 😔 \nDeseja comprar algum?`, buttons)
 })
 bot.action('n', context => {
-  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma !', keyboardOptionsLearn)
+  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma!', keyboardOptionsLearn)
 })
 bot.action('s', async context => {
-  context.reply('Bacana, vamos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-frontend-vue?_pos=2&_sid=3652f3a1d&_ss=r)', keyboardOptionsLearn)
+  context.reply('Bacana! Podemos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-frontend-vue?_pos=2&_sid=3652f3a1d&_ss=r) e ver se te agradar Senhor', keyboardOptionsLearn)
+  context.reply('Também tem a opção de procurarmos em alguma livraria ou biblioteca aqui por perto', location)
+})
+bot.on('location', async context => {
+  try {
+  	const url = 'http://api.openweathermap.org/data/2.5/weather'
+  	const { latitude: lat, longitude: lon } = context.message.location
+
+  	const res = await axios.get(`${url}?lat=${lat}&lon=${lon}&APPID=${env.weathermapAPIkey}&units=metric`)
+  	await context.reply(`Senhor! Você está em ${res.data.name}`)
+  	await context.reply(`A temperatura por aí está em ${res.data.main.temp}ºC`)
+  	await context.reply(`De acordo com sua localização nós temos a Livraria Saraiva, deseja saber a distância até lá?`, buttons)
+
+  } catch(e) {
+  	context.reply('Não consigo obter sua localização Senhor! Espero que esteja ainda no planeta Terra')
+  }	
+})
+bot.action('n', context => {
+  context.replyWithMarkdown('Tudo bem Mestre! Vamos aprender de outra forma!', keyboardOptionsLearn)
+})
+bot.action('s', async context => {
+  context.reply('Ok, logo mais mandarei a distância em Km')
+  
 })
 bot.hears('LINKS', async context => {
   context.replyWithMarkdown(`Achei estes links: [link1](https://medium.mybridge.co/45-amazing-vue-js-open-source-for-the-past-year-v-2019-b8533f26a0a2) & [link2](https://www.taniarascia.com/getting-started-with-vue/) que possa servir como ajuda Senhor!`)
@@ -214,7 +248,7 @@ bot.hears('VÍDEOS', async context => {
 
 
 bot.hears('REACT.JS', async context => {
-  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *React.JS* Senhor?`, buttons)	
+  context.replyWithMarkdown(`Deseja continuar com *React.JS* Senhor?`, buttons)	
 })
 bot.action('n', context => {
   context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Front-End* !', keyboardFrontEnd)
@@ -235,10 +269,11 @@ bot.hears('LIVROS', async context => {
   context.replyWithMarkdown(`Infelizmente não temos nenhum livro Senhor! 😔 \nDeseja comprar algum?`, buttons)
 })
 bot.action('n', context => {
-  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma !', keyboardOptionsLearn)
+  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma!', keyboardOptionsLearn)
 })
 bot.action('s', async context => {
-  context.reply('Bacana, vamos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-pwa?_pos=1&_sid=7ac361db2&_ss=r)', keyboardOptionsLearn)
+  context.reply('Bacana! Podemos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-pwa?_pos=1&_sid=7ac361db2&_ss=r) e ver se te agradar Senhor', keyboardOptionsLearn)
+  context.reply('Também tem a opção de procurarmos em alguma livraria ou biblioteca aqui por perto', location)
 })
 bot.hears('LINKS', async context => {
   context.replyWithMarkdown(`Achei estes links: [link1](https://medium.com/@cakiran/react-crud-app-without-and-with-redux-da4cd87f2eab) & [link2](https://blog.tecsinapse.com.br/utilizando-react-redux-firebase-2bf93ea9f422) que possa servir como ajuda Senhor!`)
@@ -249,9 +284,8 @@ bot.hears('VÍDEOS', async context => {
 
 
 
-
 bot.hears('ANGULAR.JS', async context => {
-  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Angular.JS* Senhor?`, buttons)	
+  context.replyWithMarkdown(`Deseja continuar com *Angular.JS* Senhor?`, buttons)	
 })
 bot.action('n', context => {
   context.replyWithMarkdown('Tá bem, vamos voltar para as tecnologias *Front-End* !', keyboardFrontEnd)
@@ -272,10 +306,12 @@ bot.hears('LIVROS', async context => {
   context.replyWithMarkdown(`Infelizmente não temos nenhum livro Senhor! 😔 \nDeseja comprar algum?`, buttons)
 })
 bot.action('n', context => {
-  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma !', keyboardOptionsLearn)
+  context.replyWithMarkdown('Tudo bem, vamos tentar aprender de outra forma!', keyboardOptionsLearn)
 })
 bot.action('s', async context => {
-  context.reply('Bacana, vamos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-angular?_pos=1&_sid=4986e8b1a&_ss=r)', keyboardOptionsLearn)
+  context.reply('Bacana! Podemos acessar [Casa Do Código](https://www.casadocodigo.com.br/products/livro-angular?_pos=1&_sid=4986e8b1a&_ss=r) e ver se te agradar Senhor', keyboardOptionsLearn)
+  context.reply('Também tem a opção de procurarmos em alguma livraria ou biblioteca aqui por perto', location)
+
 })
 bot.hears('LINKS', async context => {
   context.replyWithMarkdown(`Achei estes links: [link1](https://www.devglan.com/angular/angular-7-crud-example) - [link2](https://medium.com/@andrewchanm/criando-um-app-angular-7-e-consumindo-uma-api-rest-1-de-3-7169d90ed8c1) - [link3](https://appdividend.com/2018/11/04/angular-7-crud-example-mean-stack-tutorial/) que possa servir como ajuda Senhor!`)
@@ -287,7 +323,7 @@ bot.hears('VÍDEOS', async context => {
 
 // ***** DEV OPS ******
 bot.hears('DEV-OPS', async context => {
-  context.replyWithMarkdown(`Ok Senhor! Qual ferramenta para integrar os Software?`, keyboardDevOps)	
+  context.replyWithMarkdown(`Ok Senhor! Qual ferramenta para Desenvolvimento ágil de Software iremos estudar?`, keyboardDevOps)	
 })
 
 bot.hears('ANSIBLE', async context => {
@@ -357,5 +393,10 @@ bot.hears('⚖ Direito Trabalhista', context => {
 bot.hears('💸 Economia', context => {
   console.log('ok')	
 })
+
+
+
+
+
 
 bot.startPolling()
