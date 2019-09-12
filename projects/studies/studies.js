@@ -19,8 +19,8 @@ const keyboardSoftwareDevelop = Markup.keyboard([
 ]).resize().extra()
 
 const keyboardCloudServices = Markup.keyboard([
-  ['AWS', 'OPENSHIFT4', 'GCP'],
-  ['HEROKU', 'KUBERNETS', 'SERVELESS']
+  ['AWS', 'AZURE', 'HEROKU'],
+  ['GCP', 'OPENSHIFT4']
 
 ]).resize().extra()
 
