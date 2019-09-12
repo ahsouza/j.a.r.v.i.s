@@ -77,23 +77,73 @@ bot.hears('</> Desenvolvimento De Software',async context => {
   context.replyWithMarkdown(`Ok Senhor! Qual área para Desenvolvimento De Software?`, keyboardSoftwareDevelop)
 })
 
-
+// ***** BACK END ******
 bot.hears('BACK-END', async context => {
   context.replyWithMarkdown(`Bacana Senhor! Vejamos o que temos a te oferecer no momento! 🙂`, keyboardBackEnd)	
 })
 
+bot.hears('NODE.JS', async context => {
+  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Node.JS* Senhor?`, buttons)	
+})
+
+bot.hears('LARAVEL PHP', async context => {
+  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Laravel PHP* Senhor?`, buttons)	
+})
+
+bot.hears('ASP.NET', async context => {
+  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Asp.Net/DotNet* Senhor?`, buttons)	
+})
+
+// ***** FRONT END ******
 bot.hears('FRONT-END', async context => {
   context.replyWithMarkdown(`Legal Senhor! Querer algo mais leve é sempre bom, qual seria a tecnologia?`, keyboardFrontEnd)	
 })
 
+bot.hears('VUE.JS', async context => {
+  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Vue.JS* Senhor?`, buttons)	
+})
+
+bot.hears('REACT.JS', async context => {
+  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *React.JS* Senhor?`, buttons)	
+})
+
+bot.hears('ANGULAR.JS', async context => {
+  context.replyWithMarkdown(`Deseja ver um simples GetStarted com *Angular.JS* Senhor?`, buttons)	
+})
+
+// ***** DEV OPS ******
 bot.hears('DEV-OPS', async context => {
   context.replyWithMarkdown(`Ok Senhor! Qual ferramenta para integrar os Software?`, keyboardDevOps)	
 })
 
+bot.hears('ANSIBLE', async context => {
+  context.replyWithMarkdown(`Deseja ler um livro sobre *Ansible* Senhor?`, buttons)	
+})
+
+bot.hears('DOCKER', async context => {
+  context.replyWithMarkdown(`Deseja ler um livro sobre *Docker* Senhor?`, buttons)	
+})
+
+bot.hears('JEKINS', async context => {
+  context.replyWithMarkdown(`Deseja ler um livro sobre *Jekins* Senhor?`, buttons)	
+})
+
+bot.hears('KUBERNETES', async context => {
+  context.replyWithMarkdown(`Deseja ler um livro sobre *Kubernetes* Senhor?`, buttons)	
+})
+
+// ***** MOBILE ******
 bot.hears('MOBILE', async context => {
   context.replyWithMarkdown(`Aplicativos? Ah Bacana! Senhor me diz a tecnologia desejada!`, keyboardMobile)	
 })
 
+bot.hears('KOTLIN', async context => {
+  context.replyWithMarkdown(`Deseja ler um livro sobre *Kotlin Android* Senhor?`, buttons)	
+})
+
+bot.hears('REACT NATIVE', async context => {
+  context.replyWithMarkdown(`Deseja ler um livro sobre *React Native* Senhor?`, buttons)	
+})
 
 // *************************
 // ******REPLYS CLOUD ******
