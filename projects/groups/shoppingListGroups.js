@@ -14,7 +14,7 @@ const generateButtons = list => Extra.markup(
 ) 
 
 bot.start(async context => {
-  const name = context.update.message.from.first_name + context.update.message.from.last_name
+  const name = context.update.message.from.first_name + ' ' + context.update.message.from.last_name
   await context.reply(`Seja bem vindo, ${name}!`)
   await context.reply('Digite os itens que deseja adicionar em seu carrinho de compras...')
 })
