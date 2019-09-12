@@ -4,7 +4,7 @@
 ![alt text](/assets/jarvis.jpg)
 
 
-1 - When you open Telegram search for **@BotFather** and type the command:
+*1* - When you open Telegram search for **@BotFather** and type the command:
 
 ```sh
 /newbot
@@ -27,7 +27,7 @@ Keep your token secure and store it safely, it can be used by anyone to control 
 For a description of the Bot API, see this page: https://core.telegram.org/bots/api
 ```
 
-2 - Download or clone the repository `https://github.com/ahsouza/j.a.r.v.i.s` 
+*2* - Download or clone the repository `https://github.com/ahsouza/j.a.r.v.i.s` 
 
 *   **env.example** - This is the file to configure your bot token created by **Telegram**
     
@@ -38,7 +38,7 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
   ```sh
 cp .env.example .env
   ```
-2 - Run some functional bot with
+*3* - Run some functional bot with
 
 ```sh
 node exemplo-bot-funcional.js
