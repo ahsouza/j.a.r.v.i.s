@@ -31,7 +31,7 @@ bot.on('text', context => {
   let text = context.update.message.text
   if(text.startsWith('/')) text = text.substring(1)	
   context.itens.push(text)	
-  ccontext.reply(`${text} adicionado com sucesso!`, generateButtons(context.itens))
+  context.reply(`${text} adicionado com sucesso!`, generateButtons(context.itens))
 })
 
 bot.action(/delete (.+)/, context => {
