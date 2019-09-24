@@ -16,12 +16,11 @@ const emergencyScene = new Scene('help')
 
 emergencyScene.enter(context => context.reply('Entrando em estado de Emergência'))
 emergencyScene.leave(context => context.reply('Saindo do estado de Emergência'))
-
 emergencyScene.command('sair', leave())
 
 emergencyScene.use(async (context, next) => {
   await context.reply('Você está em situações de emergência, digite algum dos comandos abaixo para que possa te ajudar em algo...')
-  await context.reply('comandos: \n/corpo-de-bombeiros \n/policia-militar \n/policia-rodoviaria-federal \n/policia-rodoviaria-estadual \n/defesa-civil \n/samu \n/salvamar')
+  await context.reply('comandos: \n/corpo-de-bombeiros \n/policia-militar \n/policia-rodoviaria-federal \n/policia-rodoviaria-estadual \n/defesa-civil \n/samu \n/salvamar \n/sair')
 
   next()
 })
@@ -53,3 +52,11 @@ emergencyScene.command('salvamar', context => {
 emergencyScene.command('samu', context => {
 	
 })
+
+const stage = new Stage(emergencyScene)
+bot.use(session())
+bot.use(stage.middleware())
+bot.command('ajuda', enter('help'))
+bot.on('message', context => context.reply('Entre com /ajuda para eu saber qual sua emergência Senhor!'))
+
+bot.startPolling()
