@@ -5,8 +5,8 @@ const bot = new Telegraf(env.token)
 
 // Ao clicar no botão START de seu bot no aplicativo telegram, será executado a seguinte instrução:
 bot.start(context => {
-  const name = context.update.message.from.first_name
-  
+  const from = context.update.message.from
+  console.log(from)
   context.reply(`Seja bem vindo, ${name}!`)
 })
 
