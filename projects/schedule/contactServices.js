@@ -3,7 +3,7 @@ const axios = require('axios')
 
 const baseUrl = 'http://localhost:3001/tarefas'
 
-const getContacts = async date => {
+const getContact = async date => {
   const url = `${baseUrl}?_sort=dt_prevista,descricao&_order=asc`	
   const res = await axios.get(url)
 
@@ -12,3 +12,12 @@ const getContacts = async date => {
   return res.data.filter(pending)
 }
 
+const getTask = async id => {
+  const resp = await axios.get(`${baseUrl}/${id}`)
+  return resp.data
+}
+
+module.exports = {
+  getContact,
+  getTask
+}
