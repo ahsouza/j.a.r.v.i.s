@@ -17,7 +17,38 @@ const getTask = async id => {
   return resp.data
 }
 
+const getTasks = async () => {
+  const res = await axios.get(`${baseUrl}?_sort=descricao&_order=asc`)
+  return res.data.filter(item => item.dt_prevista === null && item.dt_conclusao === null)
+}
+
+const getCompleted = async() => {
+  const res = await axios.get(`${baseUrl}?_sort=dt_previsao, descricao&_order=asc`)
+  return res.data.filter(item => item.dt_conclusao !== null)
+}
+
+const setTask = async desc => {
+  const res = await axios.post(`${baseUrl}`, {descricao: desc, dt_prevista: null, dt_conclusao: null, observacao: null })
+  return res.data
+}
+
+const concludeTask = async id => {
+  const task = await getTask(id)
+  const res = await.put(`${baseUrl}/${id}`, {...task, dt_conclusao: moment().format('YYYY--MM-DD')})
+  return res.data
+}
+
+const deleteTask = async id => {
+  await axios.delete(`${baseUrl}/${id}`)
+}
+
+
 module.exports = {
-  getContact,
-  getTask
+  getSchedule,
+  getTask,
+  getTasks,
+  getCompleted,
+  setTask,
+  concludeTask,
+  deleteTask
 }
