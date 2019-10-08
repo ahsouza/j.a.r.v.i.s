@@ -3,7 +3,14 @@ const Telegraf = require('telegraf')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const moment = require('moment')
-const { getContact, getTask } = require('./scheduleServices.js')
+const {   
+        getSchedule,
+        getTask,
+        getTasks,
+        getCompleted,
+        setTask,
+        concludeTask,
+        deleteTask } = require('./scheduleServices.js')
 
 const bot = new Telegraf(env.token)
 
@@ -47,9 +54,29 @@ const buttonsTask = idTask => Extra.HTML().markup(Markup.inlineKeyboard([
 ], {columns: 4}))
 
 // COMANDOS
-bot.command('dia', async context => {
+bot.command('hoje', async context => {
   const tasks = await getSchedule(moment())
-  context.reply(`Aqui está sua agenda do dia Senhor!`, buttonsSchedule(tasks))
+  context.reply(`Aqui está sua agenda de hoje Senhor!`, buttonsSchedule(tasks))
+})
+
+bot.command('amanha', async context => {
+  const tasks = await getSchedule(moment().add({day: 1}))
+  context.reply(`Aqui está a sua agenda entre hoje e o amanhã!`, buttonsSchedule(tasks))
+})
+
+bot.command('semana', async context => {
+  const tasks = await getSchedule(moment().add({week: 1}))
+  context.reply(`Está é suas tarefas da semana`)
+})
+
+bot.command('concluidas', async context => {
+  const tasks = await getCompleted()
+  context.reply(`Aqui está as tarefas que você já concluiu`, buttonsSchedule(tasks))
+})
+
+bot.command('incompletas', async context => {
+  const tarefas = await getTarefas()
+  context.reply(`Estas são as tarefas sem data definida, incompletas`, buttonsSchedule(tasks))
 })
 
 // ACTIONS BOT
