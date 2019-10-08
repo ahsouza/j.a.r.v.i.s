@@ -30,3 +30,12 @@ const showTask = async (context, taskId, newMsg = false) => {
   	context.editMessageText(msg, buttonsTask(taskId))
   }
 }
+
+const buttonsSchedule = tasks => {
+  const buttons =tarefas.map(item => {
+    const data = item.dt_previsao ?
+      `${moment(item.dt_previsao).format('DD/MM/YYYY')} - ` : ''
+    return [Markup.callbackButton(`${data}${item.descricao}`, `show ${item.id}`)]  
+  })
+  return Extra.markup(Markup.inlineKeyboard(buttons, { columns: 1} ))
+}
