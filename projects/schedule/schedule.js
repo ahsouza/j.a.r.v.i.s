@@ -28,7 +28,8 @@ const showTask = async (context, taskId, newMsg = false) => {
   const msg = `
   	<b>${task.descricao}</b>
   	<b>Previsão:</b> ${formatDate(task.dt_prevista)}${conclusion}
-  	<b>Observações:</b>\n${task.observacao || ''}`
+  	<b>Observações:</b>\n${task.observacao || ''}
+  `
 
   if(newMsg) {
   	context.reply(msg, buttonsTask(taskId))
@@ -74,7 +75,7 @@ bot.command('concluidas', async context => {
   context.reply(`Aqui está as tarefas que você já concluiu`, buttonsSchedule(tasks))
 })
 
-bot.command('incompletas', async context => {
+bot.command('pendentes', async context => {
   const tarefas = await getTarefas()
   context.reply(`Estas são as tarefas sem data definida, incompletas`, buttonsSchedule(tasks))
 })
@@ -82,6 +83,26 @@ bot.command('incompletas', async context => {
 // ACTIONS BOT
 bot.action(/exibir (.+)/, async context => {
   await showTask(context, context.match[1])
+})
+
+bot.action(/concluir (.+)/, async context => {
+  await concludeTask(context.match[1])
+  await showTask(context, context.match[1])
+  await context.reply(`Tarefa Concluída!`)
+})
+
+bot.action(/excluir (.+)/, async context => {
+  await deleteTask(context.match[1])
+  await context.editMessageText(`Tarefa Excluída!`)
+})
+
+bot.on('text', async context => {
+  try {
+    const task = await setTask(context.update.message.text)
+    await showTask(context, task.id, true)
+  }catch (err) {
+    console.log(err)
+  }
 })
 
 bot.startPolling()
