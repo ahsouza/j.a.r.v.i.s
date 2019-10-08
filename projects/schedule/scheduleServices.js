@@ -3,7 +3,7 @@ const axios = require('axios')
 
 const baseUrl = 'http://localhost:3001/tarefas'
 
-const getContact = async date => {
+const getSchedule = async date => {
   const url = `${baseUrl}?_sort=dt_prevista,descricao&_order=asc`	
   const res = await axios.get(url)
 
