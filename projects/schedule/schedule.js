@@ -40,8 +40,8 @@ const showTask = async (context, taskId, newMsg = false) => {
 
 const buttonsSchedule = tasks => {
   const buttons =tasks.map(item => {
-    const data = item.dt_previsao ?
-      `${moment(item.dt_previsao).format('DD/MM/YYYY')} - ` : ''
+    const data = item.dt_prevista ?
+      `${moment(item.dt_prevista).format('DD/MM/YYYY')} - ` : ''
     return [Markup.callbackButton(`${data}${item.descricao}`, `show ${item.id}`)]  
   })
   return Extra.markup(Markup.inlineKeyboard(buttons, { columns: 1} ))
@@ -67,7 +67,7 @@ bot.command('amanha', async context => {
 
 bot.command('semana', async context => {
   const tasks = await getSchedule(moment().add({week: 1}))
-  context.reply(`Está é suas tarefas da semana`)
+  context.reply(`Está é suas tarefas da semana`, buttonsSchedule(tasks))
 })
 
 bot.command('concluidas', async context => {
