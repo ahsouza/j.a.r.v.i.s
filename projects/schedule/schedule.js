@@ -3,6 +3,11 @@ const Telegraf = require('telegraf')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const moment = require('moment')
+
+const session = require('telegraf/session')
+const Stage = require('telegraf/stage')
+const Scene = require('telegraf/scenes/base')
+
 const {   
         getSchedule,
         getTask,
@@ -10,6 +15,8 @@ const {
         getCompleted,
         setTask,
         concludeTask,
+        updateDateTask,
+        updateDateTask,
         deleteTask } = require('./scheduleServices')
 
 const bot = new Telegraf(env.token)
@@ -76,7 +83,7 @@ bot.command('concluidas', async context => {
 })
 
 bot.command('pendentes', async context => {
-  const tarefas = await getTarefas()
+  const tarefas = await getTasks()
   context.reply(`Estas são as tarefas sem data definida, incompletas`, buttonsSchedule(tasks))
 })
 
@@ -96,6 +103,91 @@ bot.action(/excluir (.+)/, async context => {
   await context.editMessageText(`Tarefa Excluída!`)
 })
 
+const keyboardDates = Markup.keyboard({
+  ['Hoje', 'Amanhã'],
+  ['1 Semana', '1 Mês']
+}).resize().oneTime().extra()
+
+let idTask = null
+
+// DATA SCENE
+const dataScene = new Scene('data')
+
+dataScene.enter(context => {
+  idTask = context.match[1]
+  context.reply(`Gostaria de definir uma data?`, keyboardDates)
+})
+
+dataScene.leave(context => idTask = null)
+
+dataScene.hears(/hoje/gi, async context => {
+  const date = moment()
+  handleData(context, date)
+})
+
+dataScene.hears(/(Amanh[ãa])/gi, async context => {
+  const date = moment().add({days: 1})
+  handleData(context, date)
+})
+
+dataScene.hears(/^(\d+) dias?/g1, async context => {
+  const date = moment().add({days: context.match[1]})
+  handleData(context, date)
+})
+
+dataScene.hears(/^(\d+) semanas?/g1, async context => {
+  const date = moment().add({weeks: context.match[1]})
+  handleData(context, date)
+})
+
+dataScene.hears(/^(\d+) m[eê]s(es)?/gi, async context => {
+  const date = moment().add({months: context.match[1]})
+  handleData(context, date)
+})
+
+dataScene.hears(/(\d{2}\/\d{2}\/\d{4})/g, async context => {
+  const date = moment(context.match[1], 'DD/MM/YYYY')
+  handleData(context, date)
+})
+
+const handleData = async (context, date) => {
+  await updateDateTask(idTask, date)
+  await context.reply(`Data atualizada!`)
+  await showTask(context, idTask, true)
+
+  context.scene.leave()
+}
+
+// RECEBA UM ALERTA ENQUANTO NÃO OUVER NENHUMA CONDIÇÃO POSITIVA AS CENAS ACIMA
+dataScene.on('message',context => context.reply(`Padrões aceitos\ndd/MM/YYYY\nX dias\nX semanas\nX meses`))
+
+// OBSERVANDO SCENE
+const obsScene = new Scene('observacoes')
+
+obsScene.enter(context => {
+  idTask = context.match[1]
+  context.reply(`Já pode adicionar suas anotações...`)
+})
+
+obsScene.leave(context => idTask = null)
+
+obsScene.on('text', async context => {
+  const task = await getTask(idTask)
+  const newText = context.update.message.text
+  const obs = task.observacao ? task.observacao + '\n---\n' + newText: newText
+
+  const res = await updateObsTask
+})
+
+
+
+
+
+
+
+
+
+// INSERI TAREFAS
 bot.on('text', async context => {
   try {
     const task = await setTask(context.update.message.text)

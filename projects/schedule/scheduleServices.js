@@ -23,7 +23,7 @@ const getTasks = async () => {
 }
 
 const getCompleted = async() => {
-  const res = await axios.get(`${baseUrl}?_sort=dt_previsao, descricao&_order=asc`)
+  const res = await axios.get(`${baseUrl}?_sort=dt_prevista, descricao&_order=asc`)
   return res.data.filter(item => item.dt_conclusao !== null)
 }
 
@@ -34,7 +34,7 @@ const setTask = async desc => {
 
 const concludeTask = async id => {
   const task = await getTask(id)
-  const res = await axios.put(`${baseUrl}/${id}`, {...task, dt_conclusao: moment().format('YYYY--MM-DD')})
+  const res = await axios.put(`${baseUrl}/${id}`, { ...task, dt_conclusao: moment().format('YYYY-MM-DD') })
   return res.data
 }
 
@@ -50,5 +50,7 @@ module.exports = {
   getCompleted,
   setTask,
   concludeTask,
-  deleteTask
+  deleteTask,
+  updateDateTask,
+  updateObsTask
 }
