@@ -24,9 +24,9 @@
 	{
 	  "id": 4,
 	  "descricao": "Fazer exercícios",
-	  "dt_prevista": "2019-09-11",
+	  "dt_prevista": null,
 	  "dt_conclusao": null,
-	  "observacao": "+Saúde"
+	  "observacao": null,
 	}
   ]
 }

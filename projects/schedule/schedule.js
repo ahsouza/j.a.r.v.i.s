@@ -161,7 +161,7 @@ const handleData = async (context, date) => {
 // RECEBA UM ALERTA ENQUANTO NÃO OUVER NENHUMA CONDIÇÃO POSITIVA AS CENAS ACIMA
 dataScene.on('message',context => context.reply(`Padrões aceitos\ndd/MM/YYYY\nX dias\nX semanas\nX meses`))
 
-// OBSERVANDO SCENE
+// OBSERVANDO SCENES
 const obsScene = new Scene('observacoes')
 
 obsScene.enter(context => {
@@ -176,7 +176,11 @@ obsScene.on('text', async context => {
   const newText = context.update.message.text
   const obs = task.observacao ? task.observacao + '\n---\n' + newText: newText
 
-  const res = await updateObsTask
+  const res = await updateObsTask(idTask, obs)
+  await context.reply(`Observação adicionada com sucesso!`)
+  await showTask(context, idTask, true)
+
+  context.scene.leave()
 })
 
 obsScene.on('message', context => context.reply(`Apenas Observações em texto são aceitas!`))
@@ -190,5 +194,12 @@ bot.on('text', async context => {
     console.log(err)
   }
 })
+
+const stage = new Stage([dataScene, obsScene])
+bot.use(session())
+bot.use(stage.middleware())
+
+bot.action(/setData (.+)/, Stage.enter('data'))
+bot.action(/addNota (.+)/, Stage.enter('observacoes'))
 
 bot.startPolling()
