@@ -11,5 +11,9 @@
   "dependencies": {
     "@types/restify": "^8.4.0",
     "restify": "^8.4.0"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.5.19",
+    "mongoose": "^5.7.4"
   }
 }
