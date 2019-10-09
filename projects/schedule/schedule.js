@@ -62,7 +62,7 @@ bot.command('hoje', async context => {
 
 bot.command('amanha', async context => {
   const tasks = await getSchedule(moment().add({day: 1}))
-  context.reply(`Aqui está a sua agenda entre hoje e o amanhã!`, buttonsSchedule(tasks))
+  context.reply(`Aqui está a sua agenda a partir de amanhã!`, buttonsSchedule(tasks))
 })
 
 bot.command('semana', async context => {
