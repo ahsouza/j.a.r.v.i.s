@@ -22,7 +22,7 @@ const getTasks = async () => {
   return res.data.filter(item => item.dt_prevista === null && item.dt_conclusao === null)
 }
 
-const getCompleted = async() => {
+const getCompleted = async () => {
   const res = await axios.get(`${baseUrl}?_sort=dt_prevista, descricao&_order=asc`)
   return res.data.filter(item => item.dt_conclusao !== null)
 }

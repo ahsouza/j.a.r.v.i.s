@@ -30,7 +30,8 @@ const formatDate = data => data ? moment(data).format('DD/MM/YYYY') : ''
 
 const showTask = async (context, taskId, newMsg = false) => {
   const task = await getTask(taskId)
-  const conclusion = task.dt_conclusao ? `\n<b>Concluída em:</b> ${formatDate(task.dt_conclusao)}` : ''
+  const conclusion = task.dt_conclusao ?
+    `\n<b>Concluída em:</b> ${formatDate(task.dt_conclusao)}` : ''
   
   const msg = `
   	<b>${task.descricao}</b>
@@ -46,19 +47,19 @@ const showTask = async (context, taskId, newMsg = false) => {
 }
 
 const buttonsSchedule = tasks => {
-  const buttons =tasks.map(item => {
+  const buttons = tasks.map(item => {
     const data = item.dt_prevista ?
       `${moment(item.dt_prevista).format('DD/MM/YYYY')} - ` : ''
     return [Markup.callbackButton(`${data}${item.descricao}`, `show ${item.id}`)]  
   })
-  return Extra.markup(Markup.inlineKeyboard(buttons, { columns: 1} ))
+  return Extra.markup(Markup.inlineKeyboard(buttons, { columns: 1}))
 }
 
 const buttonsTask = idTask => Extra.HTML().markup(Markup.inlineKeyboard([
   Markup.callbackButton('✔️', `concluir ${idTask}`),
   Markup.callbackButton('📅', `setData ${idTask}`),
   Markup.callbackButton('💬', `addNota ${idTask}`),
-  Markup.callbackButton('✖️', `excluir ${idTask}`)
+  Markup.callbackButton('✖️', `excluir ${idTask}`),
 ], {columns: 4}))
 
 // COMANDOS
@@ -82,9 +83,9 @@ bot.command('concluidas', async context => {
   context.reply(`Aqui está as tarefas que você já concluiu`, buttonsSchedule(tasks))
 })
 
-bot.command('pendentes', async context => {
-  const tarefas = await getTasks()
-  context.reply(`Estas são as tarefas sem data definida, incompletas`, buttonsSchedule(tasks))
+bot.command('tarefas', async context => {
+  const tasks = await getTasks()
+  context.reply(`Estas são tarefas sem data definida`, buttonsSchedule(tasks))
 })
 
 // ACTIONS BOT
@@ -120,38 +121,38 @@ dataScene.enter(context => {
 
 dataScene.leave(context => idTask = null)
 
-dataScene.hears(/hoje/gi, async context => {
-  const date = moment()
-  handleData(context, date)
+dataScene.hears(/pendentes/gi, async context => {
+  const data = moment()
+  handleData(context, data)
 })
 
 dataScene.hears(/(Amanh[ãa])/gi, async context => {
-  const date = moment().add({days: 1})
-  handleData(context, date)
+  const data = moment().add({ days: 1})
+  handleData(context, data)
 })
 
 dataScene.hears(/^(\d+) dias?$/gi, async context => {
-  const date = moment().add({days: context.match[1]})
-  handleData(context, date)
+  const data = moment().add({days: context.match[1]})
+  handleData(context, data)
 })
 
 dataScene.hears(/^(\d+) semanas?/gi, async context => {
-  const date = moment().add({weeks: context.match[1]})
-  handleData(context, date)
+  const data = moment().add({weeks: context.match[1]})
+  handleData(context, data)
 })
 
 dataScene.hears(/^(\d+) m[eê]s(es)?/gi, async context => {
-  const date = moment().add({months: context.match[1]})
-  handleData(context, date)
+  const data = moment().add({months: context.match[1]})
+  handleData(context, data)
 })
 
 dataScene.hears(/(\d{2}\/\d{2}\/\d{4})/g, async context => {
-  const date = moment(context.match[1], 'DD/MM/YYYY')
-  handleData(context, date)
+  const data = moment(context.match[1], 'DD/MM/YYYY')
+  handleData(context, data)
 })
 
-const handleData = async (context, date) => {
-  await updateDateTask(idTask, date)
+const handleData = async (context, data) => {
+  await updatedateTask(idTask, data)
   await context.reply(`Data atualizada!`)
   await showTask(context, idTask, true)
 
@@ -185,6 +186,13 @@ obsScene.on('text', async context => {
 
 obsScene.on('message', context => context.reply(`Apenas Observações em texto são aceitas!`))
 
+const stage = new Stage([dataScene, obsScene])
+bot.use(session())
+bot.use(stage.middleware())
+
+bot.action(/setData (.+)/, Stage.enter('data'))
+bot.action(/addNota (.+)/, Stage.enter('observacoes'))
+
 // INSERI TAREFAS
 bot.on('text', async context => {
   try {
@@ -194,12 +202,5 @@ bot.on('text', async context => {
     console.log(err)
   }
 })
-
-const stage = new Stage([dataScene, obsScene])
-bot.use(session())
-bot.use(stage.middleware())
-
-bot.action(/setData (.+)/, Stage.enter('data'))
-bot.action(/addNota (.+)/, Stage.enter('observacoes'))
 
 bot.startPolling()

@@ -1,32 +1,32 @@
 {
   "tarefas": [
-	{
-	  "id": 1,
-	  "descricao": "Salvar contatos da Família",
-	  "dt_prevista": "2019-09-25",
-	  "dt_conclusao": null,
-	  "observacao": "Lembrar de criar o grupo da familia"
-	},
-	{
-	  "id": 2,
-	  "descricao": "Salvar contatos de Amigos de Trabalho",
-	  "dt_prevista": "2019-09-26",
-	  "dt_conclusao": null,
-	  "observacao": "Somente associados da Empresa"
-	},
-	{
-	  "id": 3,
-	  "descricao": "Comprar livros",
-	  "dt_prevista": "2019-09-10",
-	  "dt_conclusao": null,
-	  "observacao": "+Conhecimento"
-	},
-	{
-	  "id": 4,
-	  "descricao": "Fazer exercícios",
-	  "dt_prevista": null,
-	  "dt_conclusao": null,
-	  "observacao": null
-	}
+    {
+      "id": 1,
+      "descricao": "Salvar contatos da Família",
+      "dt_prevista": "2019-08-25",
+      "dt_conclusao": null,
+      "observacao": "Lembrar de criar o grupo da familia"
+    },
+    {
+      "id": 2,
+      "descricao": "Salvar contatos de Amigos de Trabalho",
+      "dt_prevista": "2019-07-26",
+      "dt_conclusao": "2019-07-26",
+      "observacao": "Somente associados da Empresa"
+    },
+    {
+      "id": 3,
+      "descricao": "Comprar livros",
+      "dt_prevista": "2019-10-09",
+      "dt_conclusao": null,
+      "observacao": "+Conhecimento"
+    },
+    {
+      "id": 4,
+      "descricao": "Fazer exercícios",
+      "dt_prevista": null,
+      "dt_conclusao": null,
+      "observacao": null
+    }
   ]
 }
