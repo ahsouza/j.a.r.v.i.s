@@ -10,8 +10,8 @@ export class Server {
   initializeDb(): mongoose.MongooseThenable{
     (<any>mongoose).Promise = global.Promise
     return mongoose.connect(environment.db.url, {
-      // useMongoClient: true,
       useNewUrlParser: true,
+      useCreateIndex: true,
       useUnifiedTopology: true
     })
   }

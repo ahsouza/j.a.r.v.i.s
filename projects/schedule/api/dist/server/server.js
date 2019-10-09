@@ -7,8 +7,8 @@ class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
         return mongoose.connect(env_1.environment.db.url, {
-            // useMongoClient: true,
             useNewUrlParser: true,
+            useCreateIndex: true,
             useUnifiedTopology: true
         });
     }

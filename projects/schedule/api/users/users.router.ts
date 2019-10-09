@@ -23,7 +23,14 @@ class UsersRouter extends Router {
   	    res.send(404)
   	    return next()
   	  })
-  	})
+		})
+		
+		application.post('/users', (req, res, next)=> {
+			let user = new User()
+			user.name = 'Elon Musk'
+			user.email = 'elon.musk@tesla.com'
+			user.save()
+		})
 
   }
 }

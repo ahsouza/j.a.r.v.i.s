@@ -20,6 +20,12 @@ class UsersRouter extends router_1.Router {
                 return next();
             });
         });
+        application.post('/users', (req, res, next) => {
+            let user = new users_model_1.User();
+            user.name = 'Elon Musk';
+            user.email = 'elon.musk@tesla.com';
+            user.save();
+        });
     }
 }
 exports.usersRouter = new UsersRouter();
