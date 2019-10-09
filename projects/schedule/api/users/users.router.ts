@@ -8,7 +8,8 @@ class UsersRouter extends Router {
 
   	application.get('/users', (req, res, next) =>{
   	  User.find().then(users => {
-  	    res.json(users)
+				res.json(users)
+				
   	    return next()
   	  })
   	})
@@ -16,11 +17,12 @@ class UsersRouter extends Router {
   	application.get('/users/:id', (req, res, next) => {
   	  User.findById(req.params.id).then(user => {
   	    if(user) {
-  	      res.json(user)
+					res.json(user)
+					
   	      return next()
   	    }
-
-  	    res.send(404)
+				res.send(404)
+				
   	    return next()
   	  })
 		})
@@ -28,9 +30,27 @@ class UsersRouter extends Router {
 		application.post('/users', (req, res, next)=> {
 			let user = new User(req.body)
 			user.save().then(user => {
+				user.password = undefined
 				res.json(user)
+
 				return next()
 			})
+		})
+
+		application.put('/users/:id', (req, res, next) => {
+			const options = {overwrite: true}
+			User.update({_id: req.params.id}, req.body, options)
+				.exec().then(result => {
+					if(result.n) {
+						return User.findById(req.params.id)
+					}else {
+						releaseEvents.send(404)
+					}
+				}).then(user => {
+					res.json(user)
+					
+					return next()
+				})
 		})
 
   }
