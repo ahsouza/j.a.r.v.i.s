@@ -10,7 +10,7 @@ const {
         getCompleted,
         setTask,
         concludeTask,
-        deleteTask } = require('./scheduleServices.js')
+        deleteTask } = require('./scheduleServices')
 
 const bot = new Telegraf(env.token)
 
@@ -23,8 +23,8 @@ const formatDate = data => data ? moment(data).format('DD/MM/YYYY') : ''
 
 const showTask = async (context, taskId, newMsg = false) => {
   const task = await getTask(taskId)
-  const conclusion = task.dt_conclusao ? `\n<b>Concluída em:</b> ${formatDate(task.dt_conclusao)}`
-
+  const conclusion = task.dt_conclusao ? `\n<b>Concluída em:</b> ${formatDate(task.dt_conclusao)}` : ''
+  
   const msg = `
   	<b>${task.descricao}</b>
   	<b>Previsão:</b> ${formatDate(task.dt_prevista)}${conclusion}
@@ -51,7 +51,7 @@ const buttonsTask = idTask => Extra.HTML().markup(Markup.inlineKeyboard([
   Markup.callbackButton('✔️', `concluir ${idTask}`),
   Markup.callbackButton('📅', `setData ${idTask}`),
   Markup.callbackButton('💬', `addNota ${idTask}`),
-  Markup.callbackButton('✖️ ', `excluir ${idTask}`)
+  Markup.callbackButton('✖️', `excluir ${idTask}`)
 ], {columns: 4}))
 
 // COMANDOS

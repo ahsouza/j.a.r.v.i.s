@@ -34,7 +34,7 @@ const setTask = async desc => {
 
 const concludeTask = async id => {
   const task = await getTask(id)
-  const res = await.put(`${baseUrl}/${id}`, {...task, dt_conclusao: moment().format('YYYY--MM-DD')})
+  const res = await axios.put(`${baseUrl}/${id}`, {...task, dt_conclusao: moment().format('YYYY--MM-DD')})
   return res.data
 }
 
