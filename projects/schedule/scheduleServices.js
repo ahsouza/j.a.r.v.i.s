@@ -42,6 +42,19 @@ const deleteTask = async id => {
   await axios.delete(`${baseUrl}/${id}`)
 }
 
+const updateDateTask = async (idTask, data) => {
+  const task = await getTask(idTask)
+  const res = await axios.put(`${baseUrl}/${idTask}`, { ...task, dt_prevista: data.format('YYYY-MM-DD')})
+
+  return res.data
+}
+
+const updateObsTask = async (idTask, obs) => {
+  const task = await getTask(idTask)
+  const res = await axios.put(`${baseUrl}/${idTask}`, { ...task, observacao: obs})
+
+  return res.data
+}
 
 module.exports = {
   getSchedule,
