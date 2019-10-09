@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Router {
+const events_1 = require("events");
+class Router extends events_1.EventEmitter {
     render(res, next) {
         return (document) => {
             if (document) {
+                this.emit('bedoreRender', document);
                 res.json(document);
             }
             else {
