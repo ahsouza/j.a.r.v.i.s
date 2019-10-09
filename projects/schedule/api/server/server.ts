@@ -24,7 +24,8 @@ export class Server {
           name: 'api',
           version: '1.0.0'
         })
-
+        // PLUGINS
+        this.application.use(restify.plugins.bodyParser())
         this.application.use(restify.plugins.queryParser())
 
         // ROUTES

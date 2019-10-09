@@ -26,10 +26,11 @@ class UsersRouter extends Router {
 		})
 		
 		application.post('/users', (req, res, next)=> {
-			let user = new User()
-			user.name = 'Elon Musk'
-			user.email = 'elon.musk@tesla.com'
-			user.save()
+			let user = new User(req.body)
+			user.save().then(user => {
+				res.json(user)
+				return next()
+			})
 		})
 
   }
