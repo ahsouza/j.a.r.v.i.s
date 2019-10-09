@@ -14,6 +14,8 @@
   },
   "devDependencies": {
     "@types/mongoose": "^5.5.19",
-    "mongoose": "^5.7.4"
+    "@types/restify-errors": "4.3.2",
+    "mongoose": "^5.7.4",
+    "restify-errors": "5.0.0"
   }
 }

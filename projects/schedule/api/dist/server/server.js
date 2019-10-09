@@ -4,6 +4,7 @@ const restify = require("restify");
 const mongoose = require("mongoose");
 const env_1 = require("../config/env");
 const merge_patch_parser_1 = require("./merge-patch-parser");
+const error_handler_1 = require("./error.handler");
 class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
@@ -31,6 +32,8 @@ class Server {
                 this.application.listen(env_1.environment.server.port, () => {
                     resolve(this.application);
                 });
+                // EVENTS
+                this.application.on('restifyError', error_handler_1.handleError);
             }
             catch (error) {
                 reject(error);
