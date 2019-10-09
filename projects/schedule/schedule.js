@@ -16,7 +16,7 @@ const {
         setTask,
         concludeTask,
         updateDateTask,
-        updateDateTask,
+        updateObsTask,
         deleteTask } = require('./scheduleServices')
 
 const bot = new Telegraf(env.token)
@@ -179,13 +179,7 @@ obsScene.on('text', async context => {
   const res = await updateObsTask
 })
 
-
-
-
-
-
-
-
+obsScene.on('message', context => context.reply(`Apenas Observações em texto são aceitas!`))
 
 // INSERI TAREFAS
 bot.on('text', async context => {
