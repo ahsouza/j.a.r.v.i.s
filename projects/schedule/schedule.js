@@ -103,10 +103,10 @@ bot.action(/excluir (.+)/, async context => {
   await context.editMessageText(`Tarefa Excluída!`)
 })
 
-const keyboardDates = Markup.keyboard({
+const keyboardDates = Markup.keyboard([
   ['Hoje', 'Amanhã'],
   ['1 Semana', '1 Mês']
-}).resize().oneTime().extra()
+]).resize().oneTime().extra()
 
 let idTask = null
 
@@ -130,12 +130,12 @@ dataScene.hears(/(Amanh[ãa])/gi, async context => {
   handleData(context, date)
 })
 
-dataScene.hears(/^(\d+) dias?/g1, async context => {
+dataScene.hears(/^(\d+) dias?$/gi, async context => {
   const date = moment().add({days: context.match[1]})
   handleData(context, date)
 })
 
-dataScene.hears(/^(\d+) semanas?/g1, async context => {
+dataScene.hears(/^(\d+) semanas?/gi, async context => {
   const date = moment().add({weeks: context.match[1]})
   handleData(context, date)
 })
