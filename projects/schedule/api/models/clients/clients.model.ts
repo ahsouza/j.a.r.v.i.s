@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose'
 export interface Client extends mongoose.Document {
   firstName: string,
   LastName: string,
-  cpf: number,
+  cpf: string,
   avatar: Buffer,
   email: string,
   telephone: {optionOne: string, optionTwo: string},
@@ -24,7 +24,7 @@ const clientchema = new mongoose.Schema({
     match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 
     required: true
   },
-  cpf: { type: Number},
+  cpf: { type: String, validate: { validator: , message: '{PATH}: Inválido CPF ({VALUE'}},
   avatar: { data: Buffer, contentType: String },
   telephone: { optionOne: String, optionTwo: String },
   site: { type: String },
@@ -51,14 +51,3 @@ const clientchema = new mongoose.Schema({
 })
 
 export const Client = mongoose.model<Client>('Client', clientSchema)
-
-
-
-
-
-
-
-
-
-
-,
