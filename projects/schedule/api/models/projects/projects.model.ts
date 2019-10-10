@@ -1,9 +1,12 @@
 import * as mongoose from 'mongoose'
+import {Client} from '../clients/clients.model'
+import {Task} from '../tasks/tasks.model'
+
 
 export interface Project extends mongoose.Document {
   name: string,
-  members: [string],
-  tasks: [string],
+  members: [mongoose.Types.ObjectId | Client],
+  tasks: [mongoose.Types.ObjectId | Task],
   git: string,
   url: string,
   type: string,
