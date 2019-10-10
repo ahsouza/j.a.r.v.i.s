@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const env_1 = require("../config/env");
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true, maxlength: 80, minlength: 3 },
     email: {
@@ -10,6 +12,33 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     password: { type: String, required: true },
-    admin: { ype: Boolean, default: false }
+    admin: { type: Boolean, default: false }
 });
+const hashPassword = (data, next) => {
+    bcrypt.hash(data.password, env_1.environment.security.saltRounds)
+        .then(hash => {
+        data.password = hash;
+        next();
+    }).catch(next);
+};
+const saveMiddleware = function (next) {
+    const user = this;
+    if (!user.isModified('password')) {
+        next();
+    }
+    else {
+        hashPassword(user, next);
+    }
+};
+const updateMiddleware = function (next) {
+    if (!this.getUpdate().password) {
+        next();
+    }
+    else {
+        hashPassword(this.getUpdate(), next);
+    }
+};
+userSchema.pre('save', saveMiddleware);
+userSchema.pre('findOneAndUpdate', updateMiddleware);
+userSchema.pre('update', updateMiddleware);
 exports.User = mongoose.model('User', userSchema);

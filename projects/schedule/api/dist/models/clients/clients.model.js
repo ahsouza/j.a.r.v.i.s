@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
+const validators_1 = require("../../config/validators");
 const clientchema = new mongoose.Schema({
     firstName: { type: String, required: true, maxlength: 80, minlength: 3 },
     LastName: { type: String, required: true, maxlength: 80, minlength: 3 },
@@ -10,7 +11,7 @@ const clientchema = new mongoose.Schema({
         match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         required: true
     },
-    cpf: { type: String, validate: { validator: , message: '{PATH}: Inválido CPF ({VALUE' } },
+    cpf: { type: String, validate: { validator: validators_1.validateCPF, message: '{PATH}: Inválido CPF ({VALUE' } },
     avatar: { data: Buffer, contentType: String },
     telephone: { optionOne: String, optionTwo: String },
     site: { type: String },
