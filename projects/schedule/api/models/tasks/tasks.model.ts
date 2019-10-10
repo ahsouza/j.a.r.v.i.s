@@ -1,10 +1,14 @@
 import * as mongoose from 'mongoose'
 
 export interface Task extends mongoose.Document {
-  name: string,
-  email: string,
-  password: string,
-  admin: boolean
+  description: string,
+  note: string,
+  priority: string,
+  datePreview: Date,
+  dateCompleted: Date,
+  dateModified: Date,
+  dateCreated: Date
+
 }
 
 const taskSchema = new mongoose.Schema({
