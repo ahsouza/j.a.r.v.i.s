@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const validators_1 = require("../../config/validators");
-const clientchema = new mongoose.Schema({
+const clientSchema = new mongoose.Schema({
     firstName: { type: String, required: true, maxlength: 80, minlength: 3 },
     LastName: { type: String, required: true, maxlength: 80, minlength: 3 },
     email: {
@@ -30,7 +30,7 @@ const clientchema = new mongoose.Schema({
         linkedin: String,
         instagram: String,
         telegram: String,
-        twitter: String,
+        twitter: String
     },
     debtor: { type: Boolean, default: false },
     dateCreated: { type: Date, default: Date.now },

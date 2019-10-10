@@ -5,6 +5,11 @@ import {NotFoundError} from 'restify-errors'
 
 class FinancialsRouter extends Router {
 
+  constructor(){
+		super()
+		this.on('beforeRender', document=> {})
+	}
+
   applyRoutes(application: restify.Server){
 
   	application.get('/financials', (req, res, next) =>{
@@ -26,7 +31,7 @@ class FinancialsRouter extends Router {
 				.catch(next)
 		})
 
-		application.put('/users/:id', (req, res, next) => {
+		application.put('/financials/:id', (req, res, next) => {
 			const options = {runValidators: true, overwrite: true}
 			Financial.update({_id: req.params.id}, req.body, options)
 				.exec().then(result => {
@@ -39,14 +44,14 @@ class FinancialsRouter extends Router {
 				  .catch(next)
 		})
 
-		application.patch('/users/:id', (req, res, next)=> {
+		application.patch('/financials/:id', (req, res, next)=> {
 			const options = {runValidators: true, new: true}
 			Financial.findByIdAndUpdate(req.params.id, req.body, options)
 				.then(this.render(res, next))
 				.catch(next)
 		})
 
-		application.del('/users/:id', (req, res, next) => {
+		application.del('/financials/:id', (req, res, next) => {
 			Financial.remove({_id: req.params.id}).exec().then((cmdResult: any) => {
 				if(cmdResult.result.n) {
 					res.send(204)

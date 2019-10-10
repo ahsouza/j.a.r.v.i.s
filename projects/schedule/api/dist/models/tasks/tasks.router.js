@@ -4,6 +4,10 @@ const router_1 = require("../../config/router");
 const tasks_model_1 = require("./tasks.model");
 const restify_errors_1 = require("restify-errors");
 class TasksRouter extends router_1.Router {
+    constructor() {
+        super();
+        this.on('beforeRender', document => { });
+    }
     applyRoutes(application) {
         application.get('/tasks', (req, res, next) => {
             tasks_model_1.Task.find()

@@ -4,6 +4,10 @@ const router_1 = require("../../config/router");
 const clients_model_1 = require("./clients.model");
 const restify_errors_1 = require("restify-errors");
 class ClientsRouter extends router_1.Router {
+    constructor() {
+        super();
+        this.on('beforeRender', document => { });
+    }
     applyRoutes(application) {
         application.get('/clients', (req, res, next) => {
             clients_model_1.Client.find()

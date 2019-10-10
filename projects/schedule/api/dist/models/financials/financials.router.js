@@ -4,6 +4,10 @@ const router_1 = require("../../config/router");
 const financials_model_1 = require("./financials.model");
 const restify_errors_1 = require("restify-errors");
 class FinancialsRouter extends router_1.Router {
+    constructor() {
+        super();
+        this.on('beforeRender', document => { });
+    }
     applyRoutes(application) {
         application.get('/financials', (req, res, next) => {
             financials_model_1.Financial.find()
@@ -21,7 +25,7 @@ class FinancialsRouter extends router_1.Router {
                 .then(this.render(res, next))
                 .catch(next);
         });
-        application.put('/users/:id', (req, res, next) => {
+        application.put('/financials/:id', (req, res, next) => {
             const options = { runValidators: true, overwrite: true };
             financials_model_1.Financial.update({ _id: req.params.id }, req.body, options)
                 .exec().then(result => {
@@ -34,13 +38,13 @@ class FinancialsRouter extends router_1.Router {
             }).then(this.render(res, next))
                 .catch(next);
         });
-        application.patch('/users/:id', (req, res, next) => {
+        application.patch('/financials/:id', (req, res, next) => {
             const options = { runValidators: true, new: true };
             financials_model_1.Financial.findByIdAndUpdate(req.params.id, req.body, options)
                 .then(this.render(res, next))
                 .catch(next);
         });
-        application.del('/users/:id', (req, res, next) => {
+        application.del('/financials/:id', (req, res, next) => {
             financials_model_1.Financial.remove({ _id: req.params.id }).exec().then((cmdResult) => {
                 if (cmdResult.result.n) {
                     res.send(204);

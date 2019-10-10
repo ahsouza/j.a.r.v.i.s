@@ -5,6 +5,11 @@ import {NotFoundError} from 'restify-errors'
 
 class ProjectsRouter extends Router {
 
+  constructor(){
+		super()
+		this.on('beforeRender', document=> {})
+	}
+
   applyRoutes(application: restify.Server){
 
   	application.get('/projects', (req, res, next) =>{
