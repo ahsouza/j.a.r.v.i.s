@@ -9,6 +9,12 @@ class ProjectsRouter extends ModelRouter<Project> {
 		super(Project)
 		this.on('beforeRender', document=> {})
 	}
+	
+	protected prepareOne(query: mongoose.DocumentQuery<Project,Project>): mongoose.DocumentQuery<Project,Project> {
+		
+		return query.populate('client', 'firstName')
+								.populate('task')
+	}
 
   applyRoutes(application: restify.Server){
 

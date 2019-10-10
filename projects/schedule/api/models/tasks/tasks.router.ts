@@ -10,6 +10,12 @@ class TasksRouter extends ModelRouter<Task> {
 		this.on('beforeRender', document=> {})
 	}
 
+	protected prepareOne(query: mongoose.DocumentQuery<Task,Task>): mongoose.DocumentQuery<Task,Task> {
+		
+		return query.populate('task')
+	}
+
+
   applyRoutes(application: restify.Server){
 
   	application.get('/tasks', this.findAll)

@@ -7,6 +7,10 @@ class ProjectsRouter extends model_router_1.ModelRouter {
         super(projects_model_1.Project);
         this.on('beforeRender', document => { });
     }
+    prepareOne(query) {
+        return query.populate('client', 'firstName')
+            .populate('task');
+    }
     applyRoutes(application) {
         application.get('/projects', this.findAll);
         application.get('/projects/:id', [this.validateId, this.findById]);

@@ -7,6 +7,9 @@ class TasksRouter extends model_router_1.ModelRouter {
         super(tasks_model_1.Task);
         this.on('beforeRender', document => { });
     }
+    prepareOne(query) {
+        return query.populate('task');
+    }
     applyRoutes(application) {
         application.get('/tasks', this.findAll);
         application.get('/tasks/:id', [this.validateId, this.findById]);
