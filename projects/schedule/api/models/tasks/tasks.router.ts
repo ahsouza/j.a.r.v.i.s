@@ -1,69 +1,23 @@
 import * as restify from 'restify'
-import {Router} from '../../config/router'
+import {ModelRouter} from '../../config/model-router'
 import {Task} from './tasks.model'
 import {NotFoundError} from 'restify-errors'
 
-class TasksRouter extends Router {
+class TasksRouter extends ModelRouter<Task> {
 
-  constructor(){
-		super()
+	constructor(){
+		super(Task)
 		this.on('beforeRender', document=> {})
 	}
 
   applyRoutes(application: restify.Server){
 
-  	application.get('/tasks', (req, res, next) =>{
-			Task.find()
-			  .then(this.render(res, next))
-			  .catch(next)
-  	})
-
-  	application.get('/tasks/:id', (req, res, next) => {
-			Task.findById(req.params.id)
-				.then(this.render(res, next))
-				.catch(next)
-		})
-		
-		application.post('/tasks', (req, res, next)=> {
-			let task = new Task(req.body)
-			task.save()
-				.then(this.render(res, next))
-				.catch(next)
-		})
-
-		application.put('/tasks/:id', (req, res, next) => {
-			const options = {runValidators: true, overwrite: true}
-			Task.update({_id: req.params.id}, req.body, options)
-				.exec().then(result => {
-					if(result.n) {
-						return Task.findById(req.params.id)
-					}else {
-						throw new NotFoundError('Documento não encontrado')
-					}
-				}).then(this.render(res, next))
-				  .catch(next)
-		})
-
-		application.patch('/tasks/:id', (req, res, next)=> {
-			const options = {runValidators: true, new: true}
-			Task.findByIdAndUpdate(req.params.id, req.body, options)
-				.then(this.render(res, next))
-				.catch(next)
-		})
-
-		application.del('/tasks/:id', (req, res, next) => {
-			Task.remove({_id: req.params.id}).exec().then((cmdResult: any) => {
-				if(cmdResult.result.n) {
-					res.send(204)
-
-					return next()
-				} else {
-					throw new NotFoundError('Documento não encontrado')
-				}
-
-				return next()
-			}).catch(next)
-		})
+  	application.get('/tasks', this.findAll)
+  	application.get('/tasks/:id', [ this.validateId, this.findById ])
+		application.post('/tasks', this.save)
+		application.put('/tasks/:id', [ this.validateId, this.replace ])
+		application.patch('/tasks/:id', [ this.validateId, this.update ])
+		application.del('/tasks/:id', [ this.validateId, this.del ])
 
   }
 }

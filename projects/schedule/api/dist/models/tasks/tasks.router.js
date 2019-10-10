@@ -1,61 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const router_1 = require("../../config/router");
+const model_router_1 = require("../../config/model-router");
 const tasks_model_1 = require("./tasks.model");
-const restify_errors_1 = require("restify-errors");
-class TasksRouter extends router_1.Router {
+class TasksRouter extends model_router_1.ModelRouter {
     constructor() {
-        super();
+        super(tasks_model_1.Task);
         this.on('beforeRender', document => { });
     }
     applyRoutes(application) {
-        application.get('/tasks', (req, res, next) => {
-            tasks_model_1.Task.find()
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.get('/tasks/:id', (req, res, next) => {
-            tasks_model_1.Task.findById(req.params.id)
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.post('/tasks', (req, res, next) => {
-            let task = new tasks_model_1.Task(req.body);
-            task.save()
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.put('/tasks/:id', (req, res, next) => {
-            const options = { runValidators: true, overwrite: true };
-            tasks_model_1.Task.update({ _id: req.params.id }, req.body, options)
-                .exec().then(result => {
-                if (result.n) {
-                    return tasks_model_1.Task.findById(req.params.id);
-                }
-                else {
-                    throw new restify_errors_1.NotFoundError('Documento não encontrado');
-                }
-            }).then(this.render(res, next))
-                .catch(next);
-        });
-        application.patch('/tasks/:id', (req, res, next) => {
-            const options = { runValidators: true, new: true };
-            tasks_model_1.Task.findByIdAndUpdate(req.params.id, req.body, options)
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.del('/tasks/:id', (req, res, next) => {
-            tasks_model_1.Task.remove({ _id: req.params.id }).exec().then((cmdResult) => {
-                if (cmdResult.result.n) {
-                    res.send(204);
-                    return next();
-                }
-                else {
-                    throw new restify_errors_1.NotFoundError('Documento não encontrado');
-                }
-                return next();
-            }).catch(next);
-        });
+        application.get('/tasks', this.findAll);
+        application.get('/tasks/:id', [this.validateId, this.findById]);
+        application.post('/tasks', this.save);
+        application.put('/tasks/:id', [this.validateId, this.replace]);
+        application.patch('/tasks/:id', [this.validateId, this.update]);
+        application.del('/tasks/:id', [this.validateId, this.del]);
     }
 }
 exports.tasksRouter = new TasksRouter();

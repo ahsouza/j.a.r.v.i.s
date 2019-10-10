@@ -1,61 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const router_1 = require("../../config/router");
+const model_router_1 = require("../../config/model-router");
 const financials_model_1 = require("./financials.model");
-const restify_errors_1 = require("restify-errors");
-class FinancialsRouter extends router_1.Router {
+class FinancialsRouter extends model_router_1.ModelRouter {
     constructor() {
-        super();
+        super(financials_model_1.Financial);
         this.on('beforeRender', document => { });
     }
     applyRoutes(application) {
-        application.get('/financials', (req, res, next) => {
-            financials_model_1.Financial.find()
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.get('/financials/:id', (req, res, next) => {
-            financials_model_1.Financial.findById(req.params.id)
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.post('/financials', (req, res, next) => {
-            let financial = new financials_model_1.Financial(req.body);
-            financial.save()
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.put('/financials/:id', (req, res, next) => {
-            const options = { runValidators: true, overwrite: true };
-            financials_model_1.Financial.update({ _id: req.params.id }, req.body, options)
-                .exec().then(result => {
-                if (result.n) {
-                    return financials_model_1.Financial.findById(req.params.id);
-                }
-                else {
-                    throw new restify_errors_1.NotFoundError('Documento não encontrado');
-                }
-            }).then(this.render(res, next))
-                .catch(next);
-        });
-        application.patch('/financials/:id', (req, res, next) => {
-            const options = { runValidators: true, new: true };
-            financials_model_1.Financial.findByIdAndUpdate(req.params.id, req.body, options)
-                .then(this.render(res, next))
-                .catch(next);
-        });
-        application.del('/financials/:id', (req, res, next) => {
-            financials_model_1.Financial.remove({ _id: req.params.id }).exec().then((cmdResult) => {
-                if (cmdResult.result.n) {
-                    res.send(204);
-                    return next();
-                }
-                else {
-                    throw new restify_errors_1.NotFoundError('Documento não encontrado');
-                }
-                return next();
-            }).catch(next);
-        });
+        application.get('/financials', this.findAll);
+        application.get('/financials/:id', [this.validateId, this.findById]);
+        application.post('/financials', this.save);
+        application.put('/financials/:id', [this.validateId, this.replace]);
+        application.patch('/financials/:id', [this.validateId, this.update]);
+        application.del('/financials/:id', [this.validateId, this.del]);
     }
 }
 exports.financialsRouter = new FinancialsRouter();
