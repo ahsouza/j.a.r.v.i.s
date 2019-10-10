@@ -7,9 +7,15 @@ export interface User extends mongoose.Document {
 }
 
 const userSchema = new mongoose.Schema({
-  name: { type: String },
-  email: { type: String, unique: true },
-  password: { type: String }
+  name: { type: String required: true, maxlength: 80, minlength: 3 },
+  email: { 
+    type: String, 
+    unique: true, 
+    match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 
+    required: true
+  },
+  password: { type: String, required: true },
+  admin: { ype: Boolean, default: false }
 })
 
 export const User = mongoose.model<User>('User', userSchema)
