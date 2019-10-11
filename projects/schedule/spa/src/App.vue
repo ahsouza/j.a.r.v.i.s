@@ -1,18 +1,45 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        
-        <span>J.A.R.V.I.S</span>
-        
-        <span class="font-weight-light"></span>
-      </v-toolbar-title>
+      
+      <v-btn text href="/">
+        <span class="mr-2">LOGO</span>
+      </v-btn>
       
       <v-spacer></v-spacer>
       
-      <v-btn text href="/cadastro">
-        <span class="mr-2">cadastre-se</span>
-      </v-btn>
+      <v-toolbar-title class="headline text-uppercase">  
+        <div class="text-center">
+              <v-dialog v-model="dialog" width="500">
+                <template v-slot:activator="{ on }">
+                  <v-btn color="dark lighten-2" dark v-on="on">
+                    ENTRAR
+                  </v-btn>
+                </template>
+
+                <v-card>
+                  <v-card-text>
+                    <br>
+
+                    <v-form ref="form" v-model="valid" lazy-validation>
+                      <v-text-field v-model="email" :rules="emailRules" label="Login" required></v-text-field>
+                      <v-text-field v-model="password" :rules="passwordRules" label="Senha" required></v-text-field>
+                    </v-form>
+                  </v-card-text>
+
+                  <v-divider></v-divider>
+
+                  <v-card-actions>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="success" @click="dialog = false">
+                      ok
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
+      </v-toolbar-title>
+  
     </v-app-bar>
 
     <v-content>
@@ -22,15 +49,13 @@
 </template>
 
 <script>
-import Home from './components/Home';
 
 export default {
   name: 'App',
   components: {
-    Home,
   },
   data: () => ({
-    //
+    dialog: false
   }),
 };
 </script>
