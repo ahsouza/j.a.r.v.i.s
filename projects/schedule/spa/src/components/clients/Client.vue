@@ -5,6 +5,7 @@
       <v-sheet :color="color" height="100%" tile>
         
         <v-row class="fill-height" align="center" justify="center">
+
           <div class="display-3">
             
             <v-card class="mx-auto" max-width="330" tile>
@@ -101,24 +102,28 @@
                     </v-col>
 
                     <v-col cols="6">
-                      <v-text-field label="Email" required></v-text-field>
+                      <v-text-field v-model="email" label="Email" required></v-text-field>
                     </v-col>
                     <v-col cols="6">
-                      <v-text-field label="CPF" required></v-text-field>
+                      <v-text-field v-model="cpf" label="CPF" required></v-text-field>
                     </v-col>
 
                     <v-col cols="6">
-                      <v-text-field label="Telefone" required></v-text-field>
+                      <v-text-field v-model="telephoneOne" label="Telefone" required></v-text-field>
                     </v-col>
                     <v-col cols="6">
-                      <v-text-field label="Site" required></v-text-field>
+                      <v-text-field v-model="telephoneTwo" label="Telefone 2" required></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12">
+                      <v-text-field v-if="telephoneOne && telephoneTwo" v-model="site" label="Site" required></v-text-field>
                     </v-col>
 
                     <v-col cols="12" sm="6">
-                      <v-select :items="items" label="Redes Sociais" required></v-select>
+                      <v-select v-if="telephoneOne && telephoneTwo" v-model="social" :items="items" label="Redes Sociais" required></v-select>
                     </v-col>
                     <v-col cols="12" sm="6">
-                      <v-text-field :label="social" hint="conta do facebook" placeholder="https://facebook.com/" required></v-text-field>
+                      <v-text-field v-if="telephoneOne && telephoneTwo" :label="social" hint="conta do facebook" placeholder="https://facebook.com/" required></v-text-field>
                     </v-col>
                   </v-row>
                   <!-- // LOCALIZAÇÃO -->
@@ -156,7 +161,7 @@
                 <v-card-actions>
                   <div class="flex-grow-1"></div>
                  <v-btn color="red darken-4" text @click="dialog = false">cancelar</v-btn>
-                 <v-btn color="success" text @click="dialog = false">salvar</v-btn>
+                 <v-btn color="success" v-on:click="save()" text @click="dialog = false">salvar</v-btn>
                 </v-card-actions>
 
               </v-card>
@@ -177,6 +182,15 @@
     name: 'Client',
     data () {
       return {
+        clientes: [],
+        firstName: null,
+        lastName: null,
+        email: null,
+        cpf: null,
+        telephone: { optionOne: null, optionTwo: null,},
+        site: null,
+        social: {facebook: null, linkedin: null, instagram: null, telegram: null, twitter: null },
+        location: {addressCountry: null, addressCity: null, addressState: null, streetAddress: null, numberAddress: null, postalCode: null, latitude: null, longitude: null},
         e1: 0,
         tab: null,
         dialog: false,
@@ -185,5 +199,46 @@
         paises: ['Argentina', 'Alemanhã', 'Austrália', 'Brasil', 'Bolívia', 'Bulgária', 'Bangladesh', 'Canadá', 'Costa Rica'],
       }
     },
+    beforeCreate() {
+      console.log('Before Create!')
+    },
+    created() {
+      this.$http.get(this.$url, { headers: { "Content-Type": "application/json"}})
+        .then(res => {
+          this.$store.commit('setClients', JSON.parse(JSON.stringify(res.data)))
+      })
+      let getClients = this.$store.getters.getClients
+
+      if (getClients) {
+        this.clientes = this.$store.getters.getClients
+      }
+
+    },
+    methods: {
+      save() {
+        this.$http.post(this.$url + `/clients`, {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          cpf: this.cpf,
+          telephone: { optionOne: this.telephoneOne, optionTwo: this.telephoneTwo },
+          site: this.site
+        })
+        .then(res => {
+          if (res.data.status) {
+
+            console.log('Cadastro efetuado com sucesso!')
+            alert('Cadastro Efetuado com Sucesso!')
+            this.$store.commit('setClient', res.data.client)
+            
+          }
+        
+        })
+        .catch(e => {
+          console.log(e)
+          alert('Tente novamente mais tarde!')
+        })
+      }
+    }  
   }
 </script>
