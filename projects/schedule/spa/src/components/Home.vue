@@ -1,142 +1,70 @@
 <template>
-  <v-container>
-    <v-layout
-      text-center
-      wrap
-    >
-      <v-flex xs12>
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        ></v-img>
-      </v-flex>
+  <v-container class="grey lighten-5">
+    <v-row no-gutters>
+      <v-col sm="6" md="5" lg="6">
+        <v-card class="pa-2" outlined tile>
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+          .col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+        </v-card>
+      </v-col>
+      <v-col sm="6" md="5" offset-md="2" lg="6" offset-lg="0">
+        <v-card class="pa-2" outlined tile>
+          <div class="text-center">
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on }">
+                <v-btn color="red lighten-2" dark v-on="on">
+                  ENTRAR
+                </v-btn>
+              </template>
 
-      <v-flex mb-4>
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank">Discord Community</a>
-        </p>
-      </v-flex>
+              <v-card>
+                <v-card-title class="headline grey lighten-2" primary-title>
+                  Autenticação
+                </v-card-title>
 
-      <v-flex
-        mb-5
-        xs12
-      >
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
+                <v-card-text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </v-card-text>
 
-        <v-layout justify-center>
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-layout>
-      </v-flex>
+                <v-divider></v-divider>
 
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Important Links</h2>
-
-        <v-layout justify-center>
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-layout>
-      </v-flex>
-
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
-
-        <v-layout justify-center>
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-layout>
-      </v-flex>
-    </v-layout>
+                <v-card-actions>
+                  <div class="flex-grow-1"></div>
+                  <v-btn color="success" text @click="dialog = false">
+                    continue
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
+
+<style scoped>
+</style>
+
 <script>
-export default {
-  data: () => ({
-    ecosystem: [
-      {
-        text: 'vuetify-loader',
-        href: 'https://github.com/vuetifyjs/vuetify-loader',
-      },
-      {
-        text: 'github',
-        href: 'https://github.com/vuetifyjs/vuetify',
-      },
-      {
-        text: 'awesome-vuetify',
-        href: 'https://github.com/vuetifyjs/awesome-vuetify',
-      },
-    ],
-    importantLinks: [
-      {
-        text: 'Documentation',
-        href: 'https://vuetifyjs.com',
-      },
-      {
-        text: 'Chat',
-        href: 'https://community.vuetifyjs.com',
-      },
-      {
-        text: 'Made with Vuetify',
-        href: 'https://madewithvuejs.com/vuetify',
-      },
-      {
-        text: 'Twitter',
-        href: 'https://twitter.com/vuetifyjs',
-      },
-      {
-        text: 'Articles',
-        href: 'https://medium.com/vuetify',
-      },
-    ],
-    whatsNext: [
-      {
-        text: 'Explore components',
-        href: 'https://vuetifyjs.com/components/api-explorer',
-      },
-      {
-        text: 'Select a layout',
-        href: 'https://vuetifyjs.com/layout/pre-defined',
-      },
-      {
-        text: 'Frequently Asked Questions',
-        href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-      },
-    ],
-  }),
-};
+  export default {
+    name: 'Home',
+    data () {
+      return {
+        e1: 0,
+        dialog: false
+      }
+    },
+  }
 </script>
