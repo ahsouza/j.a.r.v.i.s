@@ -1,15 +1,11 @@
 import * as restify from 'restify'
 import {ModelRouter} from '../../config/model-router'
 import {Client} from './clients.model'
-import {NotFoundError} from 'restify-errors'
 
 class ClientsRouter extends ModelRouter<Client> {
 
 	constructor(){
 		super(Client)
-		this.on('beforeRender', document=> {
-			document.password = undefined
-		})
 	}
 
   applyRoutes(application: restify.Server){

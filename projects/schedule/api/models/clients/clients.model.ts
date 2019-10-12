@@ -3,14 +3,14 @@ import {validateCPF} from '../../config/validators'
 
 export interface Client extends mongoose.Document {
   firstName: string,
-  LastName: string,
+  lastName: string,
   cpf: string,
   avatar: Buffer,
   email: string,
-  telephone: {optionOne: string, optionTwo: string},
+  //telephone: {optionOne: string, optionTwo: string},
   site: string,
-  social: {facebook: string, linkedin: string, instagram: string, telegram: string, twitter: string},
-  location: {addressCountry: string, addressCity: string, addressState: string, streetAddress: string, numberAddress: string, postalCode: string, latitude: string, longitude: string},
+  //social: {facebook: string, linkedin: string, instagram: string, telegram: string, twitter: string},
+  //location: {addressCountry: string, addressCity: string, addressState: string, streetAddress: string, numberAddress: string, postalCode: string, latitude: string, longitude: string},
   debtor: boolean,
   dateCreated: Date,
   dateModified: Date
@@ -18,7 +18,7 @@ export interface Client extends mongoose.Document {
 
 const clientSchema = new mongoose.Schema({
   firstName: { type: String, required: true, maxlength: 80, minlength: 3 },
-  LastName: { type: String, required: true, maxlength: 80, minlength: 3 },
+  lastName: { type: String, required: true, maxlength: 80, minlength: 3 },
   email: { 
     type: String, 
     unique: true, 
