@@ -30,9 +30,9 @@ export class Server {
 
         const corsOptions: corsMiddleware.Options = {
           preflightMaxAge: 10,
-          origins: ['http://localhost:8080'],
-          exposeHeaders: ['x-custom-header']
-          //allowHeaders: ['authorization']
+          origins: ['*'],
+          exposeHeaders: ['x-custom-header'],
+          allowHeaders: ['authorization']
         }
         const cors: corsMiddleware.CorsMiddleware = corsMiddleware(corsOptions)
 
