@@ -29,7 +29,7 @@ export class Server {
         })
 
         const corsOptions: corsMiddleware.Options = {
-          preflightMaxAge: 10,
+          preflightMaxAge: 86400,
           origins: ['*'],
           exposeHeaders: ['x-custom-header'],
           allowHeaders: ['authorization']
