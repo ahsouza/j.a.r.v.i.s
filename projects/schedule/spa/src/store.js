@@ -5,11 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user,
-    client,
-    financial,
-    projects,
-    tasks,
+    user: null,
+    client: null,
+    financial: null,
+    project: null,
+    task: null,
     clients: [],
     financials: [],
     projects: [],

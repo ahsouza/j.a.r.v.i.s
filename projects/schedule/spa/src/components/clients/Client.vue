@@ -98,57 +98,57 @@
                       <v-text-field v-model="firstName" label="Nome" required></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="lastName" label="Sobrenome" persistent-hint required></v-text-field>
+                      <v-text-field v-model="lastName" label="Sobrenome" required></v-text-field>
                     </v-col>
 
                     <v-col cols="6">
                       <v-text-field v-model="email" label="Email" required></v-text-field>
                     </v-col>
                     <v-col cols="6">
-                      <v-text-field v-model="cpf" label="CPF" required></v-text-field>
+                      <v-text-field v-model="cpf" label="CPF"></v-text-field>
                     </v-col>
 
                     <v-col cols="6">
-                      <v-text-field v-model="telephoneOne" label="Telefone" required></v-text-field>
+                      <v-text-field v-model="telephoneOne" label="Telefone"></v-text-field>
                     </v-col>
                     <v-col cols="6">
-                      <v-text-field v-model="telephoneTwo" label="Telefone 2" required></v-text-field>
+                      <v-text-field v-model="telephoneTwo" label="Telefone 2"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field v-if="telephoneOne && telephoneTwo" v-model="site" label="Site" required></v-text-field>
+                      <v-text-field v-if="telephoneOne && telephoneTwo" v-model="site" label="Site"></v-text-field>
                     </v-col>
 
                     <v-col cols="12" sm="6">
-                      <v-select v-if="telephoneOne && telephoneTwo" v-model="social" :items="items" label="Redes Sociais" required></v-select>
+                      <v-select v-if="telephoneOne && telephoneTwo" v-model="social" :items="items" label="Redes Sociais"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6">
-                      <v-text-field v-if="telephoneOne && telephoneTwo" :label="social" hint="conta do facebook" placeholder="https://facebook.com/" required></v-text-field>
+                      <v-text-field v-if="telephoneOne && telephoneTwo" :label="social" hint="conta do facebook" placeholder="https://facebook.com/"></v-text-field>
                     </v-col>
                   </v-row>
                   <!-- // LOCALIZAÇÃO -->
                   <v-row v-if="i == 2">
                     <v-col cols="12" sm="6">
-                      <v-select :paises="paises" label="País" required></v-select>
+                      <v-select :paises="paises" label="País"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field label="Cidade" hint="cidade que o cliente mora atualmente" persistent-hint required></v-text-field>
+                      <v-text-field label="Cidade" hint="cidade que o cliente mora atualmente" persistent-hint></v-text-field>
                     </v-col>
                     
                     <v-col cols="12" sm="6">
-                      <v-select :estado="estado" label="Estado" required></v-select>
+                      <v-select :estado="estado" label="Estado"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6">
-                      <v-text-field v-model="postalCode" label="CEP" required></v-text-field>
+                      <v-text-field v-model="postalCode" label="CEP"></v-text-field>
                     </v-col>
                     <v-col cols="12">
-                      <v-text-field v-model="streetAddress" label="Logradouro" required></v-text-field>
+                      <v-text-field v-model="streetAddress" label="Logradouro"></v-text-field>
                     </v-col>
                   </v-row>
                   <!-- // PROJETOS -->
                   <v-row v-if="i == 3">
                     <v-col cols="12" sm="6" md="6">
-                      <v-select label="Projetos" required></v-select>
+                      <v-select label="Projetos"></v-select>
                     </v-col>
             
                     <v-col cols="12" sm=6 md=6>
@@ -183,16 +183,16 @@
     data () {
       return {
         clientes: [],
-        firstName: null,
-        lastName: null,
-        email: null,
-        cpf: null,
-        telephone: { optionOne: null, optionTwo: null,},
-        site: null,
-        social: {facebook: null, linkedin: null, instagram: null, telegram: null, twitter: null },
-        location: {addressCountry: null, addressCity: null, addressState: null, streetAddress: null, numberAddress: null, postalCode: null, latitude: null, longitude: null},
+        firstName: 'Aníbal',
+        lastName: 'Henrique',
+        email: 'ahs@ahs.com',
+        cpf: '',
+        telephone: { optionOne: '', optionTwo: '',},
+        site: '',
+        social: {facebook: '', linkedin: '', instagram: '', telegram: '', twitter: '' },
+        location: {addressCountry: '', addressCity: '', addressState: '', streetAddress: '', numberAddress: '', postalCode: '', latitude: '', longitude: ''},
         e1: 0,
-        tab: null,
+        tab: '',
         dialog: false,
         items: ['Facebook', 'LinkedIn', 'Instagram', 'Telegram', 'Twitter'],
         colors: [ 'secondary', 'deep-purple accent-4', 'primary', 'yellow darken-2', 'orange'],
@@ -203,7 +203,7 @@
       console.log('Before Create!')
     },
     created() {
-      this.$http.get(this.$url, { headers: { "Content-Type": "application/json"}})
+      this.$http.get(this.$url + `/clients`)
         .then(res => {
           this.$store.commit('setClients', JSON.parse(JSON.stringify(res.data)))
       })
@@ -212,7 +212,6 @@
       if (getClients) {
         this.clientes = this.$store.getters.getClients
       }
-
     },
     methods: {
       save() {
@@ -221,22 +220,19 @@
           lastName: this.lastName,
           email: this.email,
           cpf: this.cpf,
-          telephone: { optionOne: this.telephoneOne, optionTwo: this.telephoneTwo },
           site: this.site
-        })
+        }, {'headers': {'Acces-Control-Allow-Methods': '*', 'Acces-Control-Allow-Origin': '*', 'Accept': 'application/json', 'Content-Type': 'application/json'}})
         .then(res => {
-          if (res.data.status) {
-
-            console.log('Cadastro efetuado com sucesso!')
-            alert('Cadastro Efetuado com Sucesso!')
-            this.$store.commit('setClient', res.data.client)
-            
-          }
+          
+          alert(res.data)
+          console.log('Cadastro efetuado com sucesso!')
+          alert('Cadastro Efetuado com Sucesso!')
+          this.$store.commit('setClient', res.data.client)
         
         })
         .catch(e => {
           console.log(e)
-          alert('Tente novamente mais tarde!')
+          alert(e)
         })
       }
     }  
