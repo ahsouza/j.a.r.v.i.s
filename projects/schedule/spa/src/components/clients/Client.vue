@@ -1,7 +1,7 @@
 <template>
 <div>
   <v-carousel>
-    <v-carousel-item v-for="(color, i) in colors" :key="color">
+    <v-carousel-item v-for="(color) in colors" :key="color">
       <v-sheet :color="color" height="100%" tile>
         
         <v-row class="fill-height" align="center" justify="center">
@@ -50,7 +50,6 @@
         </v-row>
 
       </v-sheet>
-
     
     </v-carousel-item>
   </v-carousel>
@@ -109,7 +108,7 @@
                     </v-col>
 
                     <v-col cols="6">
-                      <v-text-field v-model="telephoneOne" label="Telefone"></v-text-field>
+                      <v-text-field v-model="telephoneOne" label="Telefone 1"></v-text-field>
                     </v-col>
                     <v-col cols="6">
                       <v-text-field v-model="telephoneTwo" label="Telefone 2"></v-text-field>
@@ -129,14 +128,14 @@
                   <!-- // LOCALIZAÇÃO -->
                   <v-row v-if="i == 2">
                     <v-col cols="12" sm="6">
-                      <v-select :paises="paises" label="País"></v-select>
+                      <v-select :paises="paises" v-model="addressCountry" label="País"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field label="Cidade" hint="cidade que o cliente mora atualmente" persistent-hint></v-text-field>
+                      <v-text-field label="Cidade" v-model="addressCity" hint="cidade que o cliente mora atualmente" persistent-hint></v-text-field>
                     </v-col>
                     
                     <v-col cols="12" sm="6">
-                      <v-select :estado="estado" label="Estado"></v-select>
+                      <v-select :estado="estado" v-model="addressState" label="Estado"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6">
                       <v-text-field v-model="postalCode" label="CEP"></v-text-field>
@@ -155,7 +154,7 @@
                       <v-text-field label="URL Git"></v-text-field>
                     </v-col>
                   </v-row>
-
+                  
                 </v-container>
                 </v-card-text>
                 <v-card-actions>
@@ -183,24 +182,30 @@
     data () {
       return {
         clientes: [],
-        firstName: 'Aníbal',
-        lastName: 'Henrique',
-        email: 'ahs@ahs.com',
+        firstName: '',
+        lastName: '',
+        email: '',
         cpf: '',
-        telephone: { optionOne: '', optionTwo: '',},
         site: '',
-        social: {facebook: '', linkedin: '', instagram: '', telegram: '', twitter: '' },
-        location: {addressCountry: '', addressCity: '', addressState: '', streetAddress: '', numberAddress: '', postalCode: '', latitude: '', longitude: ''},
+        // telephone: [{ telephoneOne: '', telephoneTwo: '' }],
+        // social: [ {facebook: '', instagram: '', twitter, telegram: '', linkedin: ''}],
+        location: { 
+          addressCountry: '', 
+          addressCity: '',
+          addressState: '',
+          streetAddress: '',
+          //numberAddress: '',
+          postalCode: '',
+          //latitude: '',
+          //longitude: ''
+        },
         e1: 0,
         tab: '',
         dialog: false,
         items: ['Facebook', 'LinkedIn', 'Instagram', 'Telegram', 'Twitter'],
         colors: [ 'secondary', 'deep-purple accent-4', 'primary', 'yellow darken-2', 'orange'],
-        paises: ['Argentina', 'Alemanhã', 'Austrália', 'Brasil', 'Bolívia', 'Bulgária', 'Bangladesh', 'Canadá', 'Costa Rica'],
+        paises: ['Argentina', 'Alemanhã', 'Austrália', 'Brasil', 'Bolívia', 'Bulgária', 'Bangladesh', 'Canadá', 'Costa Rica']
       }
-    },
-    beforeCreate() {
-      console.log('Before Create!')
     },
     created() {
       this.$http.get(this.$url + `/clients`)
@@ -218,13 +223,9 @@
         this.$http.post(this.$url + `/clients`, {
           firstName: this.firstName,
           lastName: this.lastName,
-          email: this.email,
-          cpf: this.cpf,
-          site: this.site
-        }, {'headers': {'Acces-Control-Allow-Methods': '*', 'Acces-Control-Allow-Origin': '*', 'Accept': 'application/json', 'Content-Type': 'application/json'}})
+          email: this.email
+        }, {'headers': {'Access-Control-Request-Method': '*', 'Acces-Control-Allow-Methods': '*', 'Acces-Control-Allow-Origin': '*', 'Accept': 'application/json', 'Content-Type': 'application/json'}})
         .then(res => {
-          
-          alert(res.data)
           console.log('Cadastro efetuado com sucesso!')
           alert('Cadastro Efetuado com Sucesso!')
           this.$store.commit('setClient', res.data.client)
@@ -232,9 +233,9 @@
         })
         .catch(e => {
           console.log(e)
-          alert(e)
+          alert(res.headers)
         })
       }
-    }  
+    }
   }
 </script>

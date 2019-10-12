@@ -14,32 +14,32 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Home
     },
     {
       path: '/clientes',
-      name: 'clients',
+      name: 'Clients',
       component: () => import('./components/clients/Client.vue')
     },
     {
       path: '/financias',
-      name: 'financial',
+      name: 'Financial',
       component: Financial
     },
     {
       path: '/projetos',
-      name: 'project',
+      name: 'PRoject',
       component: Project
     },
     {
       path: '/tarefas',
-      name: 'task',
+      name: 'Task',
       component: Task
     },
     {
-      path: '/cadastro',
-      name: 'register',
+      path: '/users',
+      name: 'User',
       component: Register
     },
   ]
