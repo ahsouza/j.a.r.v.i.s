@@ -4,6 +4,23 @@
 ![alt text](/assets/jarvis.jpg)
 
 
+#### Running API Server
+
+1. Install node-typescript
+```sh
+sudo apt install node-typescript
+```
+2. Create a folder named 'dist' in **/projects/schedule/api** and run the following command:
+```sh
+tsc -w
+```
+
+3. Install npm dependencies and run the following command
+```sh
+node dist/main.js
+```
+#### Creating Bot on Telegram
+
 *1* - When you open Telegram search for **@BotFather** and type the command:
 
 ```sh
@@ -49,3 +66,4 @@ or upload the docker bot by changing the dockerfile file in the CMD parameter ar
 ```sh
 docker build -t j.a.r.v.i.s-telegram .
 ```
+
