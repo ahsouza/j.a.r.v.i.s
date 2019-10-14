@@ -108,40 +108,40 @@
                     </v-col>
 
                     <v-col cols="6">
-                      <v-text-field v-model="telephoneOne" label="Telefone 1"></v-text-field>
+                      <v-text-field v-model="telephone.telephoneOne" label="Telefone 1"></v-text-field>
                     </v-col>
                     <v-col cols="6">
-                      <v-text-field v-model="telephoneTwo" label="Telefone 2"></v-text-field>
+                      <v-text-field v-model="telephone.telephoneTwo" label="Telefone 2"></v-text-field>
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field v-if="telephoneOne && telephoneTwo" v-model="site" label="Site"></v-text-field>
+                      <v-text-field v-if="telephone.telephoneOne && telephone.telephoneTwo" v-model="site" label="Site"></v-text-field>
                     </v-col>
 
                     <v-col cols="12" sm="6">
-                      <v-select v-if="telephoneOne && telephoneTwo" v-model="social" :items="items" label="Redes Sociais"></v-select>
+                      <v-select v-if="telephone.telephoneOne && telephone.telephoneTwo" :items="items" label="Redes Sociais"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6">
-                      <v-text-field v-if="telephoneOne && telephoneTwo" :label="social" hint="conta do facebook" placeholder="https://facebook.com/"></v-text-field>
+                      <v-text-field v-if="telephone.telephoneOne && telephone.telephoneTwo" hint="conta do facebook" placeholder="https://facebook.com/"></v-text-field>
                     </v-col>
                   </v-row>
                   <!-- // LOCALIZAÇÃO -->
                   <v-row v-if="i == 2">
                     <v-col cols="12" sm="6">
-                      <v-select :paises="paises" v-model="addressCountry" label="País"></v-select>
+                      <v-select :paises="paises" v-model="location.addressCountry" label="País"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field label="Cidade" v-model="addressCity" hint="cidade que o cliente mora atualmente" persistent-hint></v-text-field>
+                      <v-text-field label="Cidade" v-model="location.addressCity" hint="cidade que o cliente mora atualmente" persistent-hint></v-text-field>
                     </v-col>
                     
                     <v-col cols="12" sm="6">
-                      <v-select :estado="estado" v-model="addressState" label="Estado"></v-select>
+                      <v-select v-model="location.addressState" label="Estado"></v-select>
                     </v-col>
                     <v-col cols="12" sm="6">
-                      <v-text-field v-model="postalCode" label="CEP"></v-text-field>
+                      <v-text-field v-model="location.postalCode" label="CEP"></v-text-field>
                     </v-col>
                     <v-col cols="12">
-                      <v-text-field v-model="streetAddress" label="Logradouro"></v-text-field>
+                      <v-text-field v-model="location.streetAddress" label="Logradouro"></v-text-field>
                     </v-col>
                   </v-row>
                   <!-- // PROJETOS -->
@@ -187,8 +187,8 @@
         email: '',
         cpf: '',
         site: '',
-        // telephone: [{ telephoneOne: '', telephoneTwo: '' }],
-        // social: [ {facebook: '', instagram: '', twitter, telegram: '', linkedin: ''}],
+        telephone: { telephoneOne: '', telephoneTwo: '' },
+      //  social: {facebook: '', instagram: '', twitter, telegram: '', linkedin: ''},
         location: { 
           addressCountry: '', 
           addressCity: '',
@@ -207,24 +207,13 @@
         paises: ['Argentina', 'Alemanhã', 'Austrália', 'Brasil', 'Bolívia', 'Bulgária', 'Bangladesh', 'Canadá', 'Costa Rica']
       }
     },
-    created() {
-      this.$http.get(this.$url + `/clients`)
-        .then(res => {
-          this.$store.commit('setClients', JSON.parse(JSON.stringify(res.data)))
-      })
-      let getClients = this.$store.getters.getClients
-
-      if (getClients) {
-        this.clientes = this.$store.getters.getClients
-      }
-    },
     methods: {
       save() {
         this.$http.post(this.$url + `/clients`, {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email
-        }, {'headers': {'Access-Control-Request-Method': '*', 'Acces-Control-Allow-Methods': '*', 'Acces-Control-Allow-Origin': '*', 'Accept': 'application/json', 'Content-Type': 'application/json'}})
+        }, {'headers': {'Access-Control-Request-Headers': '*', 'Acces-Control-Allow-Origin': '*', 'Accept': 'application/json', 'Content-Type': 'application/json'}})
         .then(res => {
           console.log('Cadastro efetuado com sucesso!')
           alert('Cadastro Efetuado com Sucesso!')
@@ -236,6 +225,17 @@
           alert(res.headers)
         })
       }
-    }
+    },
+    created() {
+      this.$http.get(this.$url + `/clients`)
+        .then(res => {
+          this.$store.commit('setClients', JSON.parse(JSON.stringify(res.data)))
+      })
+      let getClients = this.$store.getters.getClients
+
+      if (getClients) {
+        this.clientes = this.$store.getters.getClients
+      }
+    },
   }
 </script>

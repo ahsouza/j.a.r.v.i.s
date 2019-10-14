@@ -21,9 +21,9 @@
                   <v-card-text>
                     <br>
 
-                    <v-form ref="form" v-model="valid" lazy-validation>
-                      <v-text-field v-model="email" :rules="emailRules" label="Login" required></v-text-field>
-                      <v-text-field v-model="password" :rules="passwordRules" label="Senha" required></v-text-field>
+                    <v-form ref="form" lazy-validation>
+                      <v-text-field v-model="email" label="Login" required></v-text-field>
+                      <v-text-field v-model="password" label="Senha" required></v-text-field>
                     </v-form>
                   </v-card-text>
 
@@ -55,7 +55,10 @@ export default {
   components: {
   },
   data: () => ({
-    dialog: false
+    dialog: false,
+    email: '',
+    password: ''
+
   }),
 };
 </script>
