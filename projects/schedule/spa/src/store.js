@@ -10,6 +10,7 @@ export default new Vuex.Store({
     financial: null,
     project: null,
     task: null,
+    users: [],
     clients: [],
     financials: [],
     projects: [],
@@ -53,6 +54,11 @@ export default new Vuex.Store({
 
   },
   mutations: {
+    setUsers(state, obj) {
+      for (let item of obj) {
+        state.users.push(item)
+      }
+    },
     setUser(state, x) {
       state.user = x
     },

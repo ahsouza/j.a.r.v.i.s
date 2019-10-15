@@ -12,7 +12,7 @@
         <div class="text-center">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on }">
-                  <v-btn color="dark lighten-2" dark v-on="on">
+                  <v-btn v-on:click="login()" color="dark lighten-2" dark v-on="on">
                     ENTRAR
                   </v-btn>
                 </template>
@@ -60,5 +60,23 @@ export default {
     password: ''
 
   }),
+  methods: {
+    login() {
+      this.$http.post(this.$url + '/users/auth', {
+        email: this.email,
+        password: this.password
+      }).then(res => {
+        if (res) {
+          console.log('Autenticado com sucesso!')
+          this.$store.commit('setUser', res.data.user)
+        } else {
+          console.log('Erro ao tentar autenticar usuário')
+        }
+      }).catch(e => {
+        console.log(e)
+        alert(e)
+      })
+    }
+  }
 };
 </script>
