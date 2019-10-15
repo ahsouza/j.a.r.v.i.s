@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.statics.findByEmail = function(email: string, projection: string) {
-  return this.findOne({email})
+  return this.findOne({email}, projection)
 }
 
 userSchema.methods.matches = function(password: string): boolean {
@@ -67,4 +67,4 @@ userSchema.pre('save', saveMiddleware)
 userSchema.pre('findOneAndUpdate', updateMiddleware)
 userSchema.pre('update', updateMiddleware)
 
-export const User = mongoose.model<User>('User', userSchema)
+export const User = mongoose.model<User, UserModel>('User', userSchema)
