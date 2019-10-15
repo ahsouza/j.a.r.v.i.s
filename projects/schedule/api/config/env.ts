@@ -3,6 +3,6 @@ export const environment = {
 	db: { url: process.env.DB_URL || 'mongodb://localhost/jarvis'},
 	security: { 
 		saltRounds: process.env.SALT_ROUNDS || 10,
-		apiSecurity: process.env.API_SECRET || ''
+		apiSecret: process.env.API_SECRET || 'jarvis-api-secret'
 	}
 }
