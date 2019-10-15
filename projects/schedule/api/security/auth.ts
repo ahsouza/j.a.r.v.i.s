@@ -2,7 +2,7 @@ import * as restify from 'restify'
 import * as jwt from 'jsonwebtoken'
 import {User} from '../users/users.model'
 import {NotAuthorizedError} from 'restify-errors'
-import {env} from '../config/env'
+import {environment} from '../config/env'
 
 export const authenticate: restify.RequestHandler = (req, res, next)=> {
   const {email, password} = req.body
@@ -11,7 +11,7 @@ export const authenticate: restify.RequestHandler = (req, res, next)=> {
     .then(user => {
       if(user && user.matches(password)) {
 
-        const token = jwt.sign({ sub: user.email, iss: 'api'}, env.security.apiSecret)
+        const token = jwt.sign({ sub: user.email, iss: 'api'}, environment.security.apiSecret)
         
         res.json({name: user.name, email: user.email, accessToken: token})
 
