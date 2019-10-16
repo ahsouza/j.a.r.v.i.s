@@ -7,7 +7,7 @@ import store from './store'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
-Vue.prototype.$url = 'http://127.0.0.1:3001'
+Vue.prototype.$url = 'https://127.0.0.1:3001'
 
 new Vue({
   vuetify,

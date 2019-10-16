@@ -213,13 +213,16 @@
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email
-        }, {'headers': {'Access-Control-Request-Headers': '*', 'Acces-Control-Allow-Origin': '*', 'Accept': 'application/json', 'Content-Type': 'application/json'}})
-        .then(res => {
-          console.log('Cadastro efetuado com sucesso!')
-          alert('Cadastro Efetuado com Sucesso!')
-          this.$store.commit('setClient', res.data.client)
-        
-        })
+          },{"headers": {"Acces-Control-Allow-Origin": "*", "Accept": "application/json", "Content-Type": "application/json"}})
+            .then(res, next => {
+          
+              if(res) {
+                console.log('Cadastro efetuado com sucesso!')
+                alert('Cadastro Efetuado com Sucesso!')
+                this.$store.commit('setClient', res.data.client)
+              }
+              next()
+          })
         .catch(e => {
           console.log(e)
           alert(res.headers)

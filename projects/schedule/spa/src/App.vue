@@ -12,7 +12,7 @@
         <div class="text-center">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on }">
-                  <v-btn v-on:click="login()" color="dark lighten-2" dark v-on="on">
+                  <v-btn color="dark lighten-2" dark v-on="on">
                     ENTRAR
                   </v-btn>
                 </template>
@@ -31,7 +31,7 @@
 
                   <v-card-actions>
                     <div class="flex-grow-1"></div>
-                    <v-btn color="success" @click="dialog = false">
+                    <v-btn v-on:click="login()" color="success" @click="dialog = false">
                       ok
                     </v-btn>
                   </v-card-actions>
@@ -73,8 +73,8 @@ export default {
           console.log('Erro ao tentar autenticar usuário')
         }
       }).catch(e => {
-        console.log(e)
         alert(e)
+        console.log(e)
       })
     }
   }
