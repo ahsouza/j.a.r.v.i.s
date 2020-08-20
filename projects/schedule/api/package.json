@@ -20,7 +20,7 @@
     "@types/mongoose": "^5.5.19",
     "@types/restify-cors-middleware": "1.0.1",
     "@types/restify-errors": "4.3.2",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "mongoose": "^5.7.4",
     "restify-errors": "5.0.0"
   }
